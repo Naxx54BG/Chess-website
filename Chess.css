@@ -1,0 +1,36 @@
+body {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.W { 
+    background-color: #ffffff;
+}
+.B {
+  background-color: #c24529;
+}
+.square {
+    height: 100px;
+    width: 100px;
+    font-size:0px;
+    padding: 0px;
+    left: 532px;
+    z-index: 1;
+    position: relative;
+  }
+.row {
+    display: flex;
+    position: relative;
+}
+.piece {
+    object-fit: cover;
+    cursor: pointer;
+    font-size: 0px;
+    height: 100px;
+    width: 100px;
+    /*transition: width 250ms ease, height 250ms ease;*/
+    position: absolute;
+    user-select: none;
+    z-index: 2;
+    /*display: inline-block;*/
+}
