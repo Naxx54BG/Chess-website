@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <link rel="stylesheet" href="DragonChess.Campaign.css">
+
+    <title>Dragon Chess</title>
+
+    <meta charset="UTF-8">
+  </head>
+
+
+  <body background="#312e2b">
+    
+    <div id="Navigation">
+
+      <div><img src="logoDragonChess.png" id="Logo"></div>
+      <div id="NavigationSpacing">
+          <div></div><!--Нарочно е сложен празен разделител, за да има празно пространство над бутоните-->
+          <div id="NavigationMenu">
+
+              <div><p id="Title"><strong><font color="#E96245">Dragon</font><font color="#BCBBB7">Chess</font></strong></p></div>
+              <div>
+
+                <div class="Button"><a onclick="window.open('DragonChess.Home.html','_self')"><button class="InactiveButton"><strong>HOME</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.News.html','_self')"><button class="InactiveButton"><strong>NEWS</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Campaign.html','_self')"><button class="ActiveButton"><strong>CAMPAIGN</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Local.html','_self')"><button class="InactiveButton"><strong>LOCAL</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Openings.html','_self')"><button class="InactiveButton"><strong>OPENINGS</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Endgames.html','_self')"><button class="InactiveButton"><strong>ENDGAMES</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Dailypuzzle.html','_self')"><button class="InactiveButton"><strong>DAILY PUZZLE</strong></button></a></div>
+
+
+                <div class="Dropdown">
+                  <button id="DropdownButton"><strong>LANGUAGE:ENG</strong></button>
+                  <div class="DropdownMenu"><button class="DroppedButton"><strong>БЪЛГАРСКИ</strong> <img src="Flags/bulgaria.gif" class="Flag"></button> <button class="DroppedButton"><strong>ENGLISH</strong> <img src="Flags/English.webp" class="Flag"></button></div>
+                </div>
+                
+              </div>
+          </div>
+      </div>
+          
+    </div>
+
+    <div id="Main">
+      <a href="Chess.html"><button>Chess</button></a>
+    </div>
+
+
+  </body>
+
+</html>

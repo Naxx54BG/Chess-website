@@ -1,0 +1,192 @@
+body{
+
+  /*styling*/
+  margin: 0px;
+
+}
+#Navigation{
+
+  /*styling*/
+  height: 100px;
+  background-color: #262421;
+  
+  /* CSS grid*/
+  display: grid;
+  grid-template-columns: 100px 1fr;
+
+  /*interaction*/
+  user-select:none;
+
+}
+#NavigationSpacing{
+
+  /*CSS grid*/
+  display: grid;
+  grid-template-rows: 40px 60px;
+
+}
+#NavigationMenu{
+
+  /*CSS grid*/
+  display: grid;
+  grid-template-columns: 300px 1fr;
+
+}
+#Title{
+
+  /*styling*/
+  margin: 0px;
+  font-size: 45px;
+  font-family: Helvetica;
+
+}
+.Button{
+  /*view*/
+  display: inline-block;
+
+}
+.InactiveButton{
+
+  /*styling*/
+  margin-top: 6px;
+  margin-left: 20px;
+  color: #BCBBB7;
+  background-color: #262421;
+  border: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 20px;
+
+  /*interaction*/
+  cursor: pointer;
+
+  /*onhover*/
+  transition: background-color 0.5s;
+
+}
+.InactiveButton:hover{
+  background-color: #1d1a19;
+}
+.ActiveButton{
+
+  /*styling*/
+  margin-top: 6px;
+  color: #ffffff;
+  background-color: #E96245;
+  border: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 20px;
+  border-radius: 20px;
+
+  /*interaction*/
+  cursor: pointer;
+
+  /*animation*/
+  animation: button-load 0.5s ease-in-out;
+}
+
+/*Code for the dropdown menu*/
+
+.Dropdown{
+
+  /*view*/
+  display: inline-block;
+  position: relative;
+ 
+}
+#DropdownButton{
+
+  /*styling*/
+  width: 140px;
+  color: #BCBBB7;
+  border: none;
+  padding-top: 21px;
+  padding-bottom: 23px;
+  background-color: #262421;
+  margin-left: 50px;
+
+  /*interaction*/
+  cursor: pointer;
+
+  /*onhover*/
+  transition: background-color 0.5s;
+
+}
+.DropdownMenu{
+
+  /*styling*/
+  color: #BCBBB7;
+  font-family: Helvetica;
+  position: absolute;
+  left: 50px;
+  background-color: #1d1a19;
+  transform: translateY(-20px);
+  opacity: 0;
+
+  /*onclick*/
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+  /*interaction*/
+  pointer-events: none;
+}
+
+.DroppedButton{
+
+  /*styling*/
+  height: 50px;
+  margin: 0px;
+  font-family: Helvetica;
+  width: 140px;
+  color: #BCBBB7;
+  background-color: #262421;
+  border: none;
+
+  /*onhover*/
+  transition: background-color 0.5s;
+
+  /*interaction*/
+  cursor: pointer;
+
+}
+.DroppedButton:hover{
+  background-color: #1d1a19;
+}
+#DropdownButton:hover{
+  background-color: #1d1a19;
+}
+
+.Dropdown > #DropdownButton:focus + .DropdownMenu{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/*End of the Dropdown menu code*/
+
+#Main{
+  height: 4000px;
+  width: 100%;
+  background-color: #312e2b;
+}
+#Logo{
+  height: 100px;
+  pointer-events: none;
+}
+.Flag{
+  height: 10px;
+}
+
+/*Animation for the active button on site load*/
+@keyframes button-load{
+0%{
+  background-color: #1d1a19;
+}
+100%{
+  background-color: #E96245;
+}
+}
