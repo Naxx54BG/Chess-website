@@ -1,6 +1,6 @@
 let dragValue;
 let isDrag=false;
-let isPuzzle=false;
+let isPuzzle=true;//пъзел ли е
 let fromsqr;
 let emptDiv=document.getElementById("emptyDiv");
 let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".Bsquare");
@@ -8,14 +8,14 @@ let ovrSqr;
 let hasMoved=[];
 let enPass=[];
 let corrm={
-	frm: ["a2","b7","b1"],
-	to: ["a3","b6","c3"],
+	frm: [/*"",*/"a2","b7","b1","e7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+	to: [/*"",*/"a3","b6","c3","e5"],
 };
 let promotion=["","","","","","","","","","","","","","","",""];
 let castleble=[true,true,true,true,true,true];
 let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
-let move=1;
+let move=2;// ако е пъзел 1-ти си белите, 2-ти си черните
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
 	enPass[i]=-1;
@@ -1778,6 +1778,26 @@ document.onmouseup=function(e){
 					fromsqr.innerHTML="";
 					if(WinPzl){
 						//win
+					}
+					if(isPuzzle && !WinPzl){
+						let automovedfrmsqr=document.getElementById(corrm.frm[move-1]);
+						let automovedtosqr=document.getElementById(corrm.to[move-1]);
+						let pieceautomovedid="";
+						for(let j=0;(automovedfrmsqr.innerHTML[j]>="a" && automovedfrmsqr.innerHTML[j]<="z") || (automovedfrmsqr.innerHTML[j]>="A" && automovedfrmsqr.innerHTML[j]<="Z") || (automovedfrmsqr.innerHTML[j]>="0" && automovedfrmsqr.innerHTML[j]<="9");j++){
+							pieceautomovedid=pieceautomovedid+automovedfrmsqr.innerHTML[j];
+						}
+						let pieceautomoved=document.getElementById(pieceautomovedid);
+						console.log(pieceautomoved.style.left);
+						let xm=automovedtosqr.getBoundingClientRect().left-pieceautomoved.getBoundingClientRect().left;
+						let ym=(automovedtosqr.getBoundingClientRect().top+scrollY)-(pieceautomoved.getBoundingClientRect().top+scrollY);
+						console.log(xm,ym);
+						emptDiv.append(document.getElementById(pieceautomovedid));
+						pieceautomoved.style.left=automovedfrmsqr.getBoundingClientRect().left+"px";
+						pieceautomoved.style.top=(automovedfrmsqr.getBoundingClientRect().top+scrollY)+"px";
+						gsap.to("#"+pieceautomoved.id,{x: xm, y: ym, duration: 0.5});
+						automovedtosqr.innerHTML=pieceautomoved.id;
+						automovedfrmsqr.innerHTML="";
+						move++;
 					}
 				}
 				//Wsquares[i].append(document.getElementById(dragValue.id));
