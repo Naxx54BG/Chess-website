@@ -1800,7 +1800,7 @@ document.onmouseup=function(e){
 							automovedtosqr.innerHTML=pieceautomovedid;
 							automovedfrmsqr.innerHTML="";
 							move++;
-						}, 510);
+						}, 520);
 					}
 				}
 				//Wsquares[i].append(document.getElementById(dragValue.id));
@@ -1817,9 +1817,22 @@ document.onmouseup=function(e){
 document.onmousemove=function(e){
 	let x=e.pageX;
 	let y=e.pageY;
-	if(isDrag==true){
-		emptDiv.append(document.getElementById(dragValue.id));
-		dragValue.style.left=(x-50)+"px";
-		dragValue.style.top=(y-50)+"px";
+	if(isDrag==true ){
+		if(isPuzzle){
+			if(move%2==1 && dragValue.id[0]=="W"){
+				emptDiv.append(document.getElementById(dragValue.id));
+				dragValue.style.left=(x-50)+"px";
+				dragValue.style.top=(y-50)+"px";
+			}
+			if(move%2==0 && dragValue.id[0]=="B"){
+				emptDiv.append(document.getElementById(dragValue.id));
+				dragValue.style.left=(x-50)+"px";
+				dragValue.style.top=(y-50)+"px";
+			}
+		}else{
+			emptDiv.append(document.getElementById(dragValue.id));
+			dragValue.style.left=(x-50)+"px";
+			dragValue.style.top=(y-50)+"px";
+		}
 	}
 }
