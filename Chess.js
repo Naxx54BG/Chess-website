@@ -1787,17 +1787,20 @@ document.onmouseup=function(e){
 							pieceautomovedid=pieceautomovedid+automovedfrmsqr.innerHTML[j];
 						}
 						let pieceautomoved=document.getElementById(pieceautomovedid);
-						console.log(pieceautomoved.style.left);
 						let xm=automovedtosqr.getBoundingClientRect().left-pieceautomoved.getBoundingClientRect().left;
 						let ym=(automovedtosqr.getBoundingClientRect().top+scrollY)-(pieceautomoved.getBoundingClientRect().top+scrollY);
-						console.log(xm,ym);
 						emptDiv.append(document.getElementById(pieceautomovedid));
 						pieceautomoved.style.left=automovedfrmsqr.getBoundingClientRect().left+"px";
 						pieceautomoved.style.top=(automovedfrmsqr.getBoundingClientRect().top+scrollY)+"px";
 						gsap.to("#"+pieceautomoved.id,{x: xm, y: ym, duration: 0.5});
-						automovedtosqr.innerHTML=pieceautomoved.id;
-						automovedfrmsqr.innerHTML="";
-						move++;
+						setTimeout(() => {
+							pieceautomoved.style.left=automovedtosqr.getBoundingClientRect().left+"px";
+							pieceautomoved.style.top=(automovedtosqr.getBoundingClientRect().top+scrollY)+"px";
+							gsap.set("#"+pieceautomoved.id,{x: 0, y: 0});
+							automovedtosqr.innerHTML=pieceautomovedid;
+							automovedfrmsqr.innerHTML="";
+							move++;
+						}, 510);
 					}
 				}
 				//Wsquares[i].append(document.getElementById(dragValue.id));
