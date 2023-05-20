@@ -1,265 +1,272 @@
 body{
 
-  /*styling*/
-  margin: 0px;
-  user-select:none;
-
-}
-#Navigation{
-
-  /*styling*/
-  height: 100px;
-  background-color: #262421;
-  position: relative;
+    /*styling*/
+    margin: 0px;
+    user-select:none;
   
-  /* CSS grid*/
-  display: grid;
-  grid-template-columns: 100px 1fr;
-
-  /*interaction*/
-  user-select:none;
-
-  z-index: 3;
-}
-#NavigationSpacing{
-
-  /*CSS grid*/
-  display: grid;
-  grid-template-rows: 40px 60px;
-
-}
-#NavigationMenu{
-
-  /*CSS grid*/
-  display: grid;
-  grid-template-columns: 300px 1fr;
-
-}
-#Title{
-
-  /*styling*/
-  margin: 0px;
-  font-size: 45px;
-  font-family: Helvetica;
-
-}
-.Button{
-  /*view*/
-  display: inline-block;
-
-}
-.InactiveButton{
-
-  /*styling*/
-  margin-top: 6px;
-  margin-left: 20px;
-  color: #BCBBB7;
-  background-color: #262421;
-  border: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 20px;
-
-  /*interaction*/
-  cursor: pointer;
-
-  /*onhover*/
-  transition: background-color 0.5s;
-
-}
-.InactiveButton:hover{
-  background-color: #1d1a19;
-}
-.ActiveButton{
-
-  /*styling*/
-  margin-top: 6px;
-  color: #ffffff;
-  background-color: #E96245;
-  border: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 20px;
-  border-radius: 20px;
-
-  /*interaction*/
-  cursor: pointer;
-
-  /*animation*/
-  animation: button-load 0.5s ease-in-out;
-}
-
-/*Code for the dropdown menu*/
-
-.Dropdown{
-
-  /*view*/
-  display: inline-block;
-  position: relative;
- 
-}
-#DropdownButton{
-
-  /*styling*/
-  width: 140px;
-  color: #BCBBB7;
-  border: none;
-  padding-top: 21px;
-  padding-bottom: 23px;
-  background-color: #262421;
-  margin-left: 50px;
-
-  /*interaction*/
-  cursor: pointer;
-
-  /*onhover*/
-  transition: background-color 0.5s;
-
-}
-.DropdownMenu{
-
-  /*styling*/
-  color: #BCBBB7;
-  font-family: Helvetica;
-  position: absolute;
-  left: 50px;
-  background-color: #1d1a19;
-  transform: translateY(-20px);
-  opacity: 0;
-
-  /*onclick*/
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-
-  /*interaction*/
-  pointer-events: none;
-}
-
-.DroppedButton{
-
-  /*styling*/
-  height: 50px;
-  margin: 0px;
-  font-family: Helvetica;
-  width: 140px;
-  color: #BCBBB7;
-  background-color: #262421;
-  border: none;
-
-  /*onhover*/
-  transition: background-color 0.5s;
-
-  /*interaction*/
-  cursor: pointer;
-
-}
-.DroppedButton:hover{
-  background-color: #1d1a19;
-}
-#DropdownButton:hover{
-  background-color: #1d1a19;
-}
-
-.Dropdown > #DropdownButton:focus + .DropdownMenu{
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/*End of the Dropdown menu code*/
-
-#Main{
-  height: 4000px;
-  width: 100%;
-}
-#Logo{
-  height: 100px;
-  pointer-events: none;
-}
-.Flag{
-  height: 10px;
-}
-#Art{
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3fr 2fr 3fr;
-  margin-top: 0px;
+  }
+  #Navigation{
   
-}
-.Picture{
-  opacity: 70%;
-  width: 550px;
-  animation: pic1 1s ease-in-out;
-  position: relative;
-  z-index: 1;
-}
-.Picture2{
-  opacity: 70%;
-  width: 650px;
-  animation: pic2 1s ease-in-out;
-  position: relative;
-  z-index: 1;
-}
-#Content{
-  position: relative;
-
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+    /*styling*/
+    height: 12.5vh;
+    background-color: #262421;
+    position: relative;
+    
+    /* CSS grid*/
+    display: grid;
+    grid-template-columns: 12.5vh 1fr;
   
-}
-.Box{
-  color: #BCBBB7;
-  width: 500px;
-  opacity: 90%;
-  height: 400px;
-  border-radius: 10px;
-  background-color: #262421;
-  animation: Contentt 1s ease-in-out;
-  margin-top: 120px;
-  padding: 30px;
-}
-/*Animation for the active button on site load*/
-@keyframes button-load{
-0%{
-  background-color: #1d1a19;
-}
-100%{
-  background-color: #E96245;
-}
-}
-@keyframes pic1{
+    /*interaction*/
+    user-select:none;
+  
+    z-index: 3;
+  }
+  #NavigationSpacing{
+  
+    /*CSS grid*/
+    display: grid;
+    grid-template-rows: 5vh 7.5vh;
+  
+  }
+  #NavigationMenu{
+  
+    /*CSS grid*/
+    display: grid;
+    grid-template-columns: 37.5vh 1fr;
+  
+  }
+  #Title{
+  
+    /*styling*/
+    margin: 0px;
+    font-size: 5.625vh;
+    font-family: Helvetica;
+  
+  }
+  .Button{
+    /*view*/
+    display: inline-block;
+  
+  }
+  .InactiveButton{
+  
+    /*styling*/
+    font-size: 1.7vh;
+    margin-top: 0.75vh;
+    margin-left: 2.5vh;
+    color: #BCBBB7;
+    background-color: #262421;
+    border: none;
+    padding-top: 1.875vh;
+    padding-bottom: 1.875vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    border-radius: 2.5vh;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+    /*onhover*/
+    transition: background-color 0.5s;
+  
+  }
+  .InactiveButton:hover{
+    background-color: #1d1a19;
+  }
+  .ActiveButton{
+    font-size: 1.7vh;
+    /*styling*/
+    margin-top: 0.75vh;
+    color: #ffffff;
+    background-color: #E96245;
+    border: none;
+    padding-top: 1.875vh;
+    padding-bottom: 1.875vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    margin-left: 2.5vh;
+    border-radius: 2.5vh;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+    /*animation*/
+    animation: button-load 0.5s ease-in-out;
+  }
+  
+  /*Code for the dropdown menu*/
+  
+  .Dropdown{
+  
+    /*view*/
+    display: inline-block;
+    position: relative;
+   
+  }
+  #DropdownButton{
+  
+
+    /*styling*/
+    height: 7.5vh;
+    font-size: 1.7vh;
+    width: 17.5vh;
+    color: #BCBBB7;
+    border: none;
+    background-color: #262421;
+    margin-left: 6.25vh;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+    /*onhover*/
+    transition: background-color 0.5s;
+  
+  }
+  .DropdownMenu{
+  
+    /*styling*/
+    color: #BCBBB7;
+    font-family: Helvetica;
+    position: absolute;
+    left: 6.25vh;
+    background-color: #1d1a19;
+    transform: translateY(-20px);
+    opacity: 0;
+  
+    /*onclick*/
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  
+    /*interaction*/
+    pointer-events: none;
+  }
+  
+  .DroppedButton{
+  
+    /*styling*/
+    font-size: 1.7vh;
+    height: 6.25vh;
+    margin: 0px;
+    font-family: Helvetica;
+    width: 17.5vh;
+    color: #BCBBB7;
+    background-color: #262421;
+    border: none;
+  
+    /*onhover*/
+    transition: background-color 0.5s;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+  }
+  .DroppedButton:hover{
+    background-color: #1d1a19;
+  }
+  #DropdownButton:hover{
+    background-color: #1d1a19;
+  }
+  
+  .Dropdown > #DropdownButton:focus + .DropdownMenu{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  /*End of the Dropdown menu code*/
+  
+  #Main{
+    height: 4000px;
+    width: 100%;
+  }
+  #Logo{
+    height: 12.5vh;
+    pointer-events: none;
+  }
+  .Flag{
+    height: 10px;
+  }
+  #Art{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 3fr 5fr;
+    margin-top: 0px;
+    
+  }
+  .icon{
+    height: 1.5vh;
+  }
+  .Picture{
+    opacity: 70%;
+    width: 100%;
+    animation: pic1 1s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+  .Picture2{
+    opacity: 70%;
+    width: 100%;
+    animation: pic2 1s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+  #Content{
+    position: relative;
+  
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+  }
+  .Box{
+    color: #BCBBB7;
+    width: 62,5vh;
+    opacity: 90%;
+    height: 50vh;
+    border-radius: 1.25vh;
+    background-color: #262421;
+    animation: Contentt 1s ease-in-out;
+    margin-top:15vh;
+    padding: 3.75vh;
+    font-size: 2vh;
+  }
+  /*Animation for the active button on site load*/
+  @keyframes button-load{
   0%{
-    transform: translateX(-40px);
-    opacity: 0%;
+    background-color: #1d1a19;
   }
   100%{
-    transform: translateX(0);
-    opacity: 70%;
+    background-color: #E96245;
   }
   }
-  @keyframes pic2{
+  @keyframes pic1{
     0%{
-      transform: translateX(40px);
-    opacity: 0%;
+      transform: translateX(-40px);
+      opacity: 0%;
     }
-    100%{ 
+    100%{
       transform: translateX(0);
       opacity: 70%;
     }
     }
-    @keyframes Contentt{
+    @keyframes pic2{
       0%{
-        transform: translateY(40px);
+        transform: translateX(40px);
       opacity: 0%;
       }
       100%{ 
-        transform: translateY(0);
-        opacity: 90%;
+        transform: translateX(0);
+        opacity: 70%;
       }
       }
+      @keyframes Contentt{
+        0%{
+          transform: translateY(40px);
+        opacity: 0%;
+        }
+        100%{ 
+          transform: translateY(0);
+          opacity: 90%;
+        }
+        }
