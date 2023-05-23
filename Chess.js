@@ -1,6 +1,6 @@
 let dragValue;
 let isDrag=false;
-let isPuzzle=true;//пъзел ли е
+let isPuzzle=false;//пъзел ли е
 let fromsqr;
 let emptDiv=document.getElementById("emptyDiv");
 let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".Bsquare");
