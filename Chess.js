@@ -15,6 +15,8 @@ let promotion=["","","","","","","","","","","","","","","",""];
 let attackedW=[];
 let attackedB=[];
 let castleble=[true,true,true,true,true,true];
+let Wcheck=false;
+let Bcheck=false;
 let tempMoveTo;
 let tempMoveFrom;
 let WinPzl=false;
@@ -38,7 +40,6 @@ function drag(piece){
 		isDrag=true;
    		dragValue=drpiece;
  	}
-
 }
 
 function take(sqr){
@@ -52,7 +53,7 @@ function take(sqr){
 	sqr.innerHTML="";
 }
 
-function canGo(tosqr){
+function canGo(tosqr,canTake){
 	
 	if(isPuzzle){
 		if(fromsqr.id==corrm.frm[move-1] && tosqr.id==corrm.to[move-1]){
@@ -73,13 +74,12 @@ function canGo(tosqr){
 			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
 				pcstr=pcstr+squares[i].innerHTML[j];
 			}
-			if(pcstr=="Wking" && attackedB.indexOf(squares[i])!=-1){
+			if(((pcstr=="Wking" && tempMoveFrom!=squares[i]) || (dragValue=="Wking" && tempMoveTo==squares[i])) && attackedB.indexOf(squares[i])!=-1){
 				return false;
 			}
 		}
 		tempMoveFrom=null;
 		tempMoveTo=null;
-		attkUptd();
 		if(dragValue.id[1]=="p"){
 			if(promotion[(parseInt(dragValue.id[5])-1)]!=""){
 				if(promotion[(parseInt(dragValue.id[5])-1)]=="Wqueen"){
@@ -92,7 +92,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -107,7 +109,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -125,7 +129,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -140,7 +146,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -158,7 +166,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -173,7 +183,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -188,7 +200,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -203,7 +217,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -224,7 +240,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -239,7 +257,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -257,7 +277,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -272,7 +294,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="B"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -293,7 +317,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="B"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -308,7 +334,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="B"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -323,7 +351,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="B"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -338,7 +368,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="B"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -351,7 +383,9 @@ function canGo(tosqr){
 				if(promotion[(parseInt(dragValue.id[5])-1)]=="Wknight"){
 					if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="W"){
 						if(tosqr.innerHTML[0]=="B"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else{
 							return true;
@@ -373,7 +407,9 @@ function canGo(tosqr){
 			}
 			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+1 && tosqr.innerHTML[0]=="B"){
 				//console.log("ya");
-				take(tosqr);
+				if(canTake){
+					take(tosqr);
+				}
 				hasMoved[(parseInt(dragValue.id[5])-1)]=true;
 				return true;
 			}
@@ -382,7 +418,9 @@ function canGo(tosqr){
 				let sq=document.getElementById(tosqr.id[0]+fromsqr.id[1]);
 				let pic=document.getElementById(sq.innerHTML);
 				if(sq.innerHTML[0]=="B" && sq.innerHTML[1]=="p" && enPass[(parseInt(pic.id[5])+7)]==move-1){
-					take(sq);
+					if(canTake){
+						take(sq);
+					}
 					hasMoved[(parseInt(dragValue.id[5])-1)]=true;
 					return true;
 				}
@@ -399,7 +437,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])-1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -416,7 +456,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])-1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -436,7 +478,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])-1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -453,7 +497,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])-1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -477,7 +523,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -492,7 +540,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -507,7 +557,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -522,7 +574,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -543,7 +597,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -558,7 +614,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -576,7 +634,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -591,7 +651,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -609,7 +671,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -624,7 +688,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -639,7 +705,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -654,7 +722,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -668,7 +738,9 @@ function canGo(tosqr){
 		if(dragValue.id[1]=="k" && dragValue.id[2]=="n"){
 			if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="W"){
 				if(tosqr.innerHTML[0]=="B"){
-					take(tosqr);
+					if(canTake){
+						take(tosqr);
+					}
 					return true;
 				}else{
 					return true;
@@ -707,7 +779,9 @@ function canGo(tosqr){
 			}
 			if((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!="W" && attackedB.indexOf(tosqr)==-1){
 					if(tosqr.innerHTML[0]=="B"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[4]=false;
 						return true;
 					}else{
@@ -716,6 +790,7 @@ function canGo(tosqr){
 					}
 			}
 		}
+		attkUptd();
 	}else if(dragValue.id[0]=="B" && move%2==0){
 		tempMoveFrom=fromsqr;
 		tempMoveTo=tosqr;
@@ -725,13 +800,12 @@ function canGo(tosqr){
 			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
 				pcstr=pcstr+squares[i].innerHTML[j];
 			}
-			if(pcstr=="Bking" && attackedW.indexOf(squares[i])!=-1){
+			if(((pcstr=="Bking" && tempMoveFrom!=squares[i]) || (dragValue=="Bking" && tempMoveTo==squares[i])) && attackedW.indexOf(squares[i])!=-1){
 				return false;
 			}
 		}
 		tempMoveFrom=null;
 		tempMoveTo=null;
-		attkUptd();
 		if(dragValue.id[1]=="p"){
 			if(promotion[(parseInt(dragValue.id[5])+7)]!=""){
 				if(promotion[(parseInt(dragValue.id[5])+7)]=="Bqueen"){
@@ -744,7 +818,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -759,7 +835,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -777,7 +855,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -792,7 +872,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -810,7 +892,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -825,7 +909,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -840,7 +926,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -855,7 +943,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -876,7 +966,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -891,7 +983,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -909,7 +1003,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -924,7 +1020,9 @@ function canGo(tosqr){
 								}
 							}
 							if(tosqr.innerHTML[0]=="W"){
-								take(tosqr);
+								if(canTake){
+									take(tosqr);
+								}
 								return true;
 							}else if(tosqr.innerHTML==""){
 								return true;
@@ -945,7 +1043,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="W"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -960,7 +1060,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="W"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -975,7 +1077,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="W"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -990,7 +1094,9 @@ function canGo(tosqr){
 							}
 						}
 						if(tosqr.innerHTML[0]=="W"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else if(tosqr.innerHTML==""){
 							return true;
@@ -1001,9 +1107,11 @@ function canGo(tosqr){
 					return false;
 				}
 				if(promotion[(parseInt(dragValue.id[5])+7)]=="Bknight"){
-					if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="W"){
+					if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="B"){
 						if(tosqr.innerHTML[0]=="W"){
-							take(tosqr);
+							if(canTake){
+								take(tosqr);
+							}
 							return true;
 						}else{
 							return true;
@@ -1025,7 +1133,9 @@ function canGo(tosqr){
 			}
 			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0"-1 && tosqr.innerHTML[0]=="W"){
 				//console.log("ya");
-				take(tosqr);
+				if(canTake){
+					take(tosqr);
+				}
 				hasMoved[(parseInt(dragValue.id[5])+7)]=true;
 				return true;
 			}
@@ -1034,7 +1144,9 @@ function canGo(tosqr){
 				let sq=document.getElementById(tosqr.id[0]+fromsqr.id[1]);
 				let pic=document.getElementById(sq.innerHTML);
 				if(sq.innerHTML[0]=="W" && sq.innerHTML[1]=="p" && enPass[(parseInt(pic.id[5])-1)]==move-1){
-					take(sq);
+					if(canTake){
+						take(sq);
+					}
 					hasMoved[(parseInt(dragValue.id[5])+7)]=true;
 					return true;
 				}
@@ -1051,7 +1163,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])+1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -1068,7 +1182,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])+1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -1088,7 +1204,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])+1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -1105,7 +1223,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[parseInt(dragValue.id[5])+1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
@@ -1129,7 +1249,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1144,7 +1266,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1159,7 +1283,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1174,7 +1300,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1195,7 +1323,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1210,7 +1340,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1228,7 +1360,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1243,7 +1377,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1261,7 +1397,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1276,7 +1414,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1291,7 +1431,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1306,7 +1448,9 @@ function canGo(tosqr){
 						}
 					}
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						return true;
 					}else if(tosqr.innerHTML==""){
 						return true;
@@ -1320,7 +1464,9 @@ function canGo(tosqr){
 		if(dragValue.id[1]=="k" && dragValue.id[2]=="n"){
 			if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="B"){
 				if(tosqr.innerHTML[0]=="W"){
-					take(tosqr);
+					if(canTake){
+						take(tosqr);
+					}
 					return true;
 				}else{
 					return true;
@@ -1360,7 +1506,9 @@ function canGo(tosqr){
 			if((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!="B" && attackedW.indexOf(tosqr)==-1){
 				//if(isCheck()){
 					if(tosqr.innerHTML[0]=="W"){
-						take(tosqr);
+						if(canTake){
+							take(tosqr);
+						}
 						castleble[5]=false;
 						return true;
 					}else{
@@ -1370,10 +1518,45 @@ function canGo(tosqr){
 				//}
 			}
 		}
+		attkUptd();
 	}else{
 		return false;
 	}
 } 
+
+function mateCheck(){
+	for(let i=0;i<64;i++){
+		for(let j=0;j<64;j++){
+			if(i==j){
+				continue;
+			}
+			let temp=dragValue;	
+			let temp2=fromsqr;
+			let pcstr="";
+			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
+				pcstr=pcstr+squares[i].innerHTML[j];
+			}
+			if(pcstr==""){
+				continue;
+			}
+			if(move%2==0 && pcstr[0]=="W"){
+				continue;
+			}
+			if(move%2==1 && pcstr[0]=="B"){
+				continue;
+			}
+			let pcchk=document.getElementById(pcstr);
+			dragValue=pcchk;
+			fromsqr=squares[i];
+			if(canGo(squares[j],false)){
+				return false;
+			}
+			dragValue=temp;
+			fromsqr=temp2;
+		}
+	}
+	return true;
+}
 
 function attkUptd(){
 	attackedW.length=0;
@@ -1384,7 +1567,9 @@ function attkUptd(){
 			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
 				pcstr=pcstr+squares[i].innerHTML[j];
 			}
-			//console.log(pcstr,i);
+			if(pcstr==""){
+				continue;
+			}
 			let pcchk=document.getElementById(pcstr);
 			if(pcchk.id[1]=="p" && tempMoveTo!=squares[i]){
 				if(promotion[(parseInt(pcchk.id[5])-1)]!="" || promotion[(parseInt(pcchk.id[5])+7)]!=""){
@@ -1723,6 +1908,7 @@ function attkUptd(){
 				for(let j=1;j<8;j++){
 					let a="a",ch1="1",h="h",ch8="8";
 					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
+					//	console.log("1",tempMoveFrom,tempMoveTo);
 						rght=false;
 					}
 					if(rght){
@@ -1734,6 +1920,7 @@ function attkUptd(){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
+							//console.log("2",attksqr,tempMoveFrom,tempMoveTo);
 							rght=false;										
 						}
 					}
@@ -2116,7 +2303,7 @@ document.onmouseup=function(e){
 		}
 		for(let i=0;i<64;i++){
 			if(squares[i].getBoundingClientRect().x<=e.clientX && squares[i].getBoundingClientRect().left+100>e.clientX && squares[i].getBoundingClientRect().top<=e.clientY && squares[i].getBoundingClientRect().top+100>e.clientY){
-				if(canGo(squares[i])){
+				if(canGo(squares[i],true)){
 					if(dragValue.id[1]=="p" && ((squares[i].id[1]=="8" && dragValue.id[0]=="W") || (squares[i].id[1]=="1" && dragValue.id[0]=="B"))){
 						if(dragValue.id[0]=="W"){
 							promotion[(parseInt(dragValue.id[5])-1)]="Wqueen";
@@ -2130,11 +2317,14 @@ document.onmouseup=function(e){
 						}
 					}
 					overABox=true;
-					move++;
 					dragValue.style.left=squares[i].getBoundingClientRect().left+"px";
 					dragValue.style.top=(squares[i].getBoundingClientRect().top+scrollY)+"px";
 					squares[i].innerHTML=dragValue.id;
 					fromsqr.innerHTML="";
+					move++;
+					if(mateCheck()){
+						emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
+					}
 					if(WinPzl){
 						//win
 					}
@@ -2171,12 +2361,10 @@ document.onmouseup=function(e){
 		}
 		dragValue=null;
 		attkUptd();
-		for(let i=0;i<attackedB.length;i++){
-			attackedB[i].style.backgroundColor="red";
-		}
 		/*for(let i=0;i<attackedB.length;i++){
 			attackedB[i].style.backgroundColor="red";
 		}*/
+		
 	}
 }
 
