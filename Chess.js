@@ -1577,7 +1577,8 @@ function attkUptd(){
 						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 						for(let j=1;j<8;j++){
 							let a="a",ch1="1",h="h",ch8="8";
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
+							//	console.log("1",tempMoveFrom,tempMoveTo);
 								rght=false;
 							}
 							if(rght){
@@ -1588,11 +1589,12 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
+									//console.log("2",attksqr,tempMoveFrom,tempMoveTo);
 									rght=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || tempMoveTo==squares[i]){
 								lft=false;
 							}
 							if(lft){
@@ -1603,11 +1605,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									lft=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
 								up=false;
 							}
 							if(up){
@@ -1618,11 +1620,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									up=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
 								dwn=false;
 							}
 							if(dwn){
@@ -1633,11 +1635,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									dwn=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
 								uprght=false;
 							}
 							if(uprght){
@@ -1648,11 +1650,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									uprght=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
 								uplft=false;
 							}
 							if(uplft){
@@ -1663,11 +1665,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									uplft=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
 								dwnrght=false;
 							}
 							if(dwnrght){
@@ -1678,11 +1680,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									dwnrght=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
 								dwnlft=false;
 							}
 							if(dwnlft){
@@ -1693,7 +1695,7 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									dwnlft=false;										
 								}
 							}
@@ -1702,7 +1704,7 @@ function attkUptd(){
 						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 						for(let j=1;j<8;j++){
 							let a="a",ch1="1",h="h",ch8="8";
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
 								rght=false;
 							}
 							if(rght){
@@ -1713,11 +1715,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									rght=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || tempMoveTo==squares[i]){
 								lft=false;
 							}
 							if(lft){
@@ -1728,11 +1730,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									lft=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
 								up=false;
 							}
 							if(up){
@@ -1743,11 +1745,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									up=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
 								dwn=false;
 							}
 							if(dwn){
@@ -1758,7 +1760,7 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									dwn=false;										
 								}
 							}
@@ -1767,7 +1769,7 @@ function attkUptd(){
 						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 						for(let j=1;j<8;j++){
 							let a="a",ch1="1",h="h",ch8="8";
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
 								uprght=false;
 							}
 							if(uprght){
@@ -1778,11 +1780,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									uprght=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
 								uplft=false;
 							}
 							if(uplft){
@@ -1793,11 +1795,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									uplft=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
 								dwnrght=false;
 							}
 							if(dwnrght){
@@ -1808,11 +1810,11 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									dwnrght=false;										
 								}
 							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0)){
+							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
 								dwnlft=false;
 							}
 							if(dwnlft){
@@ -1823,12 +1825,12 @@ function attkUptd(){
 								if(pcchk.id[0]=="B"){
 									attackedB.push(attksqr);
 								}
-								if(attksqr.innerHTML!=""){
+								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 									dwnlft=false;										
 								}
 							}
 						}
-					}else if(promotion[(parseInt(pcchk.id[5])-1)]=="Wknight" || promotion[(parseInt(pcchk.id[5])+7)]=="Bknight"){
+					}else if(promotion[(parseInt(pcchk.id[5])-1)]=="Wknight" || promotion[(parseInt(pcchk.id[5])+7)]=="Bknight" && tempMoveTo!=squares[i]){
 						let a="a",ch1="1",h="h",ch8="8";
 						if(pcchk.id[0]=="W"){
 							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
