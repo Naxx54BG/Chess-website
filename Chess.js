@@ -72,8 +72,9 @@ function canGo(tosqr,canTake){
 		attkUptd();
 		for(let i=0;i<64;i++){
 			let pcstr="";
-			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
-				pcstr=pcstr+squares[i].innerHTML[j];
+			let whole_name=squares[i].innerHTML;
+			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
+				pcstr=pcstr+whole_name[k]; 
 			}
 			if(((pcstr=="Wking" && tempMoveFrom!=squares[i]) || (dragValue=="Wking" && tempMoveTo==squares[i])) && attackedB.indexOf(squares[i])!=-1){
 				return false;
@@ -798,8 +799,9 @@ function canGo(tosqr,canTake){
 		attkUptd();
 		for(let i=0;i<64;i++){
 			let pcstr="";
-			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
-				pcstr=pcstr+squares[i].innerHTML[j];
+			let whole_name=squares[i].innerHTML;
+			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
+				pcstr=pcstr+whole_name[k]; 
 			}
 			if(((pcstr=="Bking" && tempMoveFrom!=squares[i]) || (dragValue=="Bking" && tempMoveTo==squares[i])) && attackedW.indexOf(squares[i])!=-1){
 				return false;
@@ -1527,34 +1529,37 @@ function canGo(tosqr,canTake){
 
 function mateCheck(){
 	for(let i=0;i<64;i++){
+		let temp=dragValue;	
+		let temp2=fromsqr;
+		let pcstr="";
+		let whole_name=squares[i].innerHTML;
+		for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
+			pcstr=pcstr+whole_name[k]; 
+		}
+		if(pcstr==""){
+			continue;
+		}
+		if(move%2==0 && pcstr[0]=="W"){
+			continue;
+		}
+		if(move%2==1 && pcstr[0]=="B"){
+			continue;
+		}
+		let pcchk=document.getElementById(pcstr);
+		dragValue=pcchk;
+		fromsqr=squares[i];
 		for(let j=0;j<64;j++){
 			if(i==j){
 				continue;
 			}
-			let temp=dragValue;	
-			let temp2=fromsqr;
-			let pcstr="";
-			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
-				pcstr=pcstr+squares[i].innerHTML[j];
-			}
-			if(pcstr==""){
-				continue;
-			}
-			if(move%2==0 && pcstr[0]=="W"){
-				continue;
-			}
-			if(move%2==1 && pcstr[0]=="B"){
-				continue;
-			}
-			let pcchk=document.getElementById(pcstr);
-			dragValue=pcchk;
-			fromsqr=squares[i];
 			if(canGo(squares[j],false)){
+				dragValue=temp;
+				fromsqr=temp2;
 				return false;
 			}
-			dragValue=temp;
-			fromsqr=temp2;
 		}
+		dragValue=temp;
+		fromsqr=temp2;
 	}
 	return true;
 }
@@ -1565,8 +1570,9 @@ function attkUptd(){
 	for(let i=0;i<64;i++){
 		if(squares[i].innerHTML!=""){
 			let pcstr="";
-			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
-				pcstr=pcstr+squares[i].innerHTML[j];
+			let whole_name=squares[i].innerHTML;
+			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
+				pcstr=pcstr+whole_name[k]; 
 			}
 			if(pcstr==""){
 				continue;
@@ -2414,8 +2420,9 @@ document.onmouseup=function(e){
 		let overABox=false;
 		for(let i=0;i<64;i++){
 			let pcstr="";
-			for(let j=0;(squares[i].innerHTML[j]>="a" && squares[i].innerHTML[j]<="z") || (squares[i].innerHTML[j]>="A" && squares[i].innerHTML[j]<="Z") || (squares[i].innerHTML[j]>="0" && squares[i].innerHTML[j]<="9");j++){
-				pcstr=pcstr+squares[i].innerHTML[j];
+			let whole_name=squares[i].innerHTML;
+			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
+				pcstr=pcstr+whole_name[k]; 
 			}
 			if(pcstr==dragValue.id){
 				fromsqr=squares[i];
@@ -2446,9 +2453,6 @@ document.onmouseup=function(e){
 					squares[i].innerHTML=dragValue.id;
 					fromsqr.innerHTML="";
 					move++;
-					if(mateCheck()){
-						emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
-					}
 					if(WinPzl){
 						//win
 					}
@@ -2484,6 +2488,9 @@ document.onmouseup=function(e){
 			dragValue.style.top=(fromsqr.getBoundingClientRect().top+scrollY)+"px";
 		}
 		dragValue=null;
+		if(mateCheck()){
+			emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
+		}
 		attkUptd();
 		/*for(let i=0;i<attackedB.length;i++){
 			attackedB[i].style.backgroundColor="red";
