@@ -22,6 +22,7 @@ let tempMoveFrom;
 let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
 let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
+let lstDrag;
 
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
@@ -2279,8 +2280,125 @@ function attkUptd(){
 	}
 }
 
+let promBqueen=document.getElementById("PromToBqueen");
+promBqueen.onclick=function(){
+	promotion[(parseInt(lstDrag.id[5])+7)]="Bqueen";
+	let prmPc=document.getElementById(lstDrag.id);
+	prmPc.src="Chess_qdt60.png";
+	document.getElementById('BPromotion').style.pointerEvents = "none";
+	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('BPromotion').style.opacity="0%";
+	}, 280);
+}
+let promBrook=document.getElementById("PromToBrook");
+promBrook.onclick=function(){
+	if(lstDrag.id[0]=="W"){
+		promotion[(parseInt(lstDrag.id[5])-1)]="Wrook";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_rlt60.png";
+	}
+	if(lstDrag.id[0]=="B"){
+		promotion[(parseInt(lstDrag.id[5])+7)]="Brook";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_rdt60.png";
+	}
+	document.getElementById('BPromotion').style.pointerEvents = "none";
+	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('BPromotion').style.opacity="0%";
+	}, 280);
+}
+let promBbishop=document.getElementById("PromToBbishop");
+promBbishop.onclick=function(){
+	if(lstDrag.id[0]=="W"){
+		promotion[(parseInt(lstDrag.id[5])-1)]="Wbishop";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_blt60.png";
+	}
+	if(lstDrag.id[0]=="B"){
+		promotion[(parseInt(lstDrag.id[5])+7)]="Bbishop";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_bdt60.png";
+	}
+	document.getElementById('BPromotion').style.pointerEvents = "none";
+	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('BPromotion').style.opacity="0%";
+	}, 280);
+}
+let promBknight=document.getElementById("PromToBknight");
+promBknight.onclick=function(){
+	if(lstDrag.id[0]=="W"){
+		promotion[(parseInt(lstDrag.id[5])-1)]="Wknight";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_nlt60.png";
+	}
+	if(lstDrag.id[0]=="B"){
+		promotion[(parseInt(lstDrag.id[5])+7)]="Bknight";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_ndt60.png";
+	}
+	document.getElementById('BPromotion').style.pointerEvents = "none";
+	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('BPromotion').style.opacity="0%";
+	}, 280);
+}
+let promWqueen=document.getElementById("PromToWqueen");
+promWqueen.onclick=function(){
+	promotion[(parseInt(lstDrag.id[5])-1)]="Wqueen";
+	let prmPc=document.getElementById(lstDrag.id);
+	prmPc.src="Chess_qlt60.png";
+	document.getElementById('WPromotion').style.pointerEvents = "none";
+	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('WPromotion').style.opacity="0%";
+	}, 280);
+}
+let promWrook=document.getElementById("PromToWrook");
+promWrook.onclick=function(){
+	if(lstDrag.id[0]=="W"){
+		promotion[(parseInt(lstDrag.id[5])-1)]="Wrook";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_rlt60.png";
+	}
+	document.getElementById('WPromotion').style.pointerEvents = "none";
+	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('WPromotion').style.opacity="0%";
+	}, 280);
+}
+let promWbishop=document.getElementById("PromToWbishop");
+promWbishop.onclick=function(){
+	if(lstDrag.id[0]=="W"){
+		promotion[(parseInt(lstDrag.id[5])-1)]="Wbishop";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_blt60.png";
+	}
+	document.getElementById('WPromotion').style.pointerEvents = "none";
+	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('WPromotion').style.opacity="0%";
+	}, 280);
+}
+let promWknight=document.getElementById("PromToWknight");
+promWknight.onclick=function(){
+	if(lstDrag.id[0]=="W"){
+		promotion[(parseInt(lstDrag.id[5])-1)]="Wknight";
+		let prmPc=document.getElementById(lstDrag.id);
+		prmPc.src="Chess_nlt60.png";
+	}
+	document.getElementById('WPromotion').style.pointerEvents = "none";
+	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
+	setTimeout(() => {
+		document.getElementById('WPromotion').style.opacity="0%";
+	}, 280);
+}
+
 document.onmouseup=function(e){
 	if(isDrag){
+		lstDrag=dragValue;
 		for(let i=0;i<64;i++){
 			if(squares[i].className[0]=="W"){
 				squares[i].style.backgroundColor="white";
@@ -2306,16 +2424,20 @@ document.onmouseup=function(e){
 		for(let i=0;i<64;i++){
 			if(squares[i].getBoundingClientRect().x<=e.clientX && squares[i].getBoundingClientRect().left+100>e.clientX && squares[i].getBoundingClientRect().top<=e.clientY && squares[i].getBoundingClientRect().top+100>e.clientY){
 				if(canGo(squares[i],true)){
-					if(dragValue.id[1]=="p" && ((squares[i].id[1]=="8" && dragValue.id[0]=="W") || (squares[i].id[1]=="1" && dragValue.id[0]=="B"))){
+					if(dragValue.id[1]=="p" && ((squares[i].id[1]=="8" && dragValue.id[0]=="W" && promotion[parseInt(dragValue.id[5])-1]=="") || (squares[i].id[1]=="1" && dragValue.id[0]=="B" && promotion[parseInt(dragValue.id[5])+7]==""))){
 						if(dragValue.id[0]=="W"){
-							promotion[(parseInt(dragValue.id[5])-1)]="Wqueen";
-							let prmPc=document.getElementById(dragValue.id);
-							prmPc.src="Chess_qlt60.png";
+							document.getElementById('WPromotion').style.animation = "anim 0.3s linear";
+							setTimeout(() => {
+								document.getElementById('WPromotion').style.opacity="90%";
+								document.getElementById('WPromotion').style.pointerEvents="all";
+							}, 300);
 						}
 						if(dragValue.id[0]=="B"){
-							promotion[(parseInt(dragValue.id[5])+7)]="Bqueen";
-							let prmPc=document.getElementById(dragValue.id);
-							prmPc.src="Chess_qdt60.png";
+							document.getElementById('BPromotion').style.animation = "anim 0.3s linear";
+							setTimeout(() => {
+								document.getElementById('BPromotion').style.opacity="90%";
+								document.getElementById('BPromotion').style.pointerEvents="all";
+							}, 300);
 						}
 					}
 					overABox=true;
