@@ -1,0 +1,345 @@
+body{
+
+    /*styling*/
+    margin: 0px;
+    user-select:none;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  #Navigation{
+  
+    /*styling*/
+    width: 100vw;
+    height: 12.5vh;
+    background-color: #262421;
+    position: relative;
+    
+    /* CSS grid*/
+    display: grid;
+    grid-template-columns: 12.5vh 1fr;
+  
+    /*interaction*/
+    user-select:none;
+  
+    z-index: 3;
+  }
+  #NavigationSpacing{
+  
+    /*CSS grid*/
+    display: grid;
+    grid-template-rows: 5vh 7.5vh;
+  
+  }
+  #NavigationMenu{
+  
+    /*CSS grid*/
+    display: grid;
+    grid-template-columns: 37.5vh 1fr;
+  
+  }
+  
+  #Title{
+  
+    /*styling*/
+    margin: 0px;
+    font-size: 5.625vh;
+    font-family: Helvetica;
+  
+  }
+  .Button{
+    /*view*/
+    display: inline-block;
+  
+  }
+  .InactiveButton{
+  
+    /*styling*/
+    font-size: 1.7vh;
+    margin-top: 0.75vh;
+    margin-left: 2.5vh;
+    color: #BCBBB7;
+    background-color: #262421;
+    border: none;
+    padding-top: 1.875vh;
+    padding-bottom: 1.875vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    border-radius: 2.5vh;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+    /*onhover*/
+    transition: background-color 0.5s;
+  
+  }
+  .InactiveButton:hover{
+    background-color: #1d1a19;
+  }
+  .ActiveButton{
+    font-size: 1.7vh;
+    /*styling*/
+    margin-top: 0.75vh;
+    color: #ffffff;
+    background-color: #E96245;
+    border: none;
+    padding-top: 1.875vh;
+    padding-bottom: 1.875vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    margin-left: 2.5vh;
+    border-radius: 2.5vh;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+    /*animation*/
+    animation: button-load 0.5s ease-in-out;
+  }
+  
+  /*Code for the dropdown menu*/
+  
+  .Dropdown{
+  
+    /*view*/
+    display: inline-block;
+    position: relative;
+   
+  }
+  #DropdownButton{
+  
+  
+    /*styling*/
+    height: 7.5vh;
+    font-size: 1.7vh;
+    width: 17.5vh;
+    color: #BCBBB7;
+    border: none;
+    background-color: #262421;
+    margin-left: 6.25vh;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+    /*onhover*/
+    transition: background-color 0.5s;
+  
+  }
+  .DropdownMenu{
+  
+    /*styling*/
+    color: #BCBBB7;
+    font-family: Helvetica;
+    position: absolute;
+    left: 6.25vh;
+    background-color: #1d1a19;
+    transform: translateY(-20px);
+    opacity: 0;
+  
+    /*onclick*/
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  
+    /*interaction*/
+    pointer-events: none;
+  }
+  
+  .DroppedButton{
+  
+    /*styling*/
+    font-size: 1.7vh;
+    height: 6.25vh;
+    margin: 0px;
+    font-family: Helvetica;
+    width: 17.5vh;
+    color: #BCBBB7;
+    background-color: #262421;
+    border: none;
+  
+    /*onhover*/
+    transition: background-color 0.5s;
+  
+    /*interaction*/
+    cursor: pointer;
+  
+  }
+  .DroppedButton:hover{
+    background-color: #1d1a19;
+  }
+  #DropdownButton:hover{
+    background-color: #1d1a19;
+  }
+  
+  .Dropdown > #DropdownButton:focus + .DropdownMenu{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  /*End of the Dropdown menu code*/
+  
+  
+  #Logo{
+    height: 12.5vh;
+    pointer-events: none;
+  }
+  .Flag{
+    height: 10px;
+  }
+  #Art{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 3fr 5fr;
+    margin-top: 0px;
+    
+  }
+  .IconArrowDown{
+    height: 1.5vh;
+  }
+  .LeftArt{
+    opacity: 70%;
+    width: 100%;
+    animation: pic1 1s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+  .RightArt{
+    opacity: 70%;
+    width: 100%;
+    animation: pic2 1s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+  #Content{
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 15vh;
+  }
+  .Box{
+    display: inline-block;
+    color: #BCBBB7;
+    width: 33.3vw;
+    opacity: 90%;
+    border-radius: 1.25vh;
+    background-color: #262421;
+    animation: Contentonload 1s ease-in-out;
+    margin-top:15vh;
+    padding: 3.75vh;
+    font-size: 2.5vh;
+    font-family: Helvetica;
+    text-align: center;
+  
+  }
+  #Footer{
+    position: relative;
+    width: 100vw;
+    height: 30vh;
+    background-color: rgb(26, 24, 24);
+    z-index: 7;
+    opacity: 90%;
+    display:grid;
+    grid-template-columns: 50vw 50vw;
+  }
+  #FooterSpacing{
+    display: grid;
+    grid-template-columns: 12vw 38vw;
+  }
+  .Info{
+    display: grid;
+    height: 7vh;
+    width: 38vw;
+    margin-top: 2vh;
+    grid-template-columns: 7vh 1fr;
+  }
+  .Circle{
+    height: 7vh;
+    width: 7vh;
+    border-radius: 3.5vh;
+    background-color: #33322f;
+  }
+  .SpriteFooter{
+    height: 4vh;
+    margin-top: 1.5vh;
+    margin-left: 1.5vh;
+  }
+  .FooterText{
+    margin-top: 2.2vh;
+    padding-left: 2.2vh;
+    height: 7vh;
+    width: 20vw;
+    color: white;
+    font-size: 2.0vh;
+    font-family: Helvetica;
+  }
+  .SocialMedia{
+    height: 4vh;
+    margin-left: 7vh;
+  }
+  .ClickableText{
+    margin-left: 20vh;
+    color: #BCBBB7;
+    cursor: pointer;
+  }
+  .ClickableText:hover{
+    text-decoration:underline;
+  }
+  .ContentLink{
+    font-size: 3vh;
+    /*styling*/
+    margin-top: 0.75vh;
+    color: #ffffff;
+    background-color: #E96245;
+    border: none;
+    padding-top: 1.875vh;
+    padding-bottom: 1.875vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    margin-left: 2.5vh;
+    border-radius: 3vh;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+  .ContentLink:hover{
+    background-color: #ac4832;
+  }
+  /*Animation for the active button on site load*/
+  @keyframes button-load{
+    0%{
+      background-color: #1d1a19;
+    }
+    100%{
+      background-color: #E96245;
+    }
+  }
+  @keyframes pic1{
+    0%{
+      transform: translateX(-40px);
+      opacity: 0%;
+    }
+    100%{
+      transform: translateX(0);
+      opacity: 70%;
+    }
+  }
+  @keyframes pic2{
+    0%{
+      transform: translateX(40px);
+      opacity: 0%;
+    }
+    100%{ 
+      transform: translateX(0);
+      opacity: 70%;
+    }
+  }
+  @keyframes Contentonload{
+    0%{
+      transform: translateY(40px);
+      opacity: 0%;
+    }
+    100%{ 
+      transform: translateY(0);
+      opacity: 90%;
+    }
+  }
