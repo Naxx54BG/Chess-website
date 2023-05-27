@@ -1,4 +1,5 @@
 let dragValue;
+let stalemate=false;
 let isDrag=false;
 let isPuzzle=false;//пъзел ли е
 let fromsqr;
@@ -8,9 +9,10 @@ let ovrSqr;
 let hasMoved=[];
 let enPass=[];
 let corrm={
-	frm: [/*"",*/"a2","b7","b1","e7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
-	to: [/*"",*/"a3","b6","c3","e5"],
+	frm: [/*"",*/"g2","g7","f1","f8","g1","g8","e1","e8","a2","f6"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+	to: [/*"",*/"g4","g5","h3","h6","f3","f6","g1","g8","a3","g4"],
 };
+let castleMove=8;
 let promotion=["","","","","","","","","","","","","","","",""];
 let attackedW=[];
 let attackedB=[];
@@ -72,12 +74,12 @@ function canGo(tosqr,canTake){
 			if(move==winMoveForPzl){
 				WinPzl=true;
 			}
-			return true;
 		}else{
 			return false;
 		}
 	}
 	if(dragValue.id[0]=="W" && move%2==1){
+		
 		tempMoveFrom=fromsqr;
 		tempMoveTo=tosqr;
 		attkUptd();
@@ -805,6 +807,7 @@ function canGo(tosqr,canTake){
 		}
 		attkUptd();
 	}else if(dragValue.id[0]=="B" && move%2==0){
+		console.log(tosqr);
 		tempMoveFrom=fromsqr;
 		tempMoveTo=tosqr;
 		attkUptd();
@@ -1490,6 +1493,7 @@ function canGo(tosqr,canTake){
 		if(dragValue.id[1]=="k" && dragValue.id[2]=="i"){
 			if(fromsqr.id[1]==tosqr.id[1] && tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0)==2){
 				let middlsqr=document.getElementById("f8");
+				
 				if(middlsqr.innerHTML=="" && tosqr.innerHTML=="" && attackedW.indexOf(middlsqr)==-1 && attackedW.indexOf(tosqr)==-1 && attackedW.indexOf(fromsqr)==-1){
 					if(castleble[3]==true && castleble[5]==true){
 						let rook=document.getElementById("Brook2");
@@ -1533,12 +1537,12 @@ function canGo(tosqr,canTake){
 			}
 		}
 		attkUptd();
-	}else{
-		return false;
 	}
+	
 } 
 
 function mateCheck(){
+	attkUptd();
 	for(let i=0;i<64;i++){
 		let temp=dragValue;	
 		let temp2=fromsqr;
@@ -1549,6 +1553,12 @@ function mateCheck(){
 		}
 		if(pcstr==""){
 			continue;
+		}
+		if(pcstr=="Wking" && attackedB.indexOf(squares[i])!=-1){
+			Bcheck=true;
+		}
+		if(pcstr=="Bking" && attackedW.indexOf(squares[i])!=-1){
+			Wcheck=true;
 		}
 		if(move%2==0 && pcstr[0]=="W"){
 			continue;
@@ -1566,11 +1576,19 @@ function mateCheck(){
 			if(canGo(squares[j],false)){
 				dragValue=temp;
 				fromsqr=temp2;
+				Wcheck=false;
+				Bcheck=false;
 				return false;
 			}
 		}
 		dragValue=temp;
 		fromsqr=temp2;
+	}
+	if(move%2==1 && !Bcheck){
+		stalemate=true;
+	}
+	if(move%2==0 && !Wcheck){
+		stalemate=true;
 	}
 	return true;
 }
@@ -1601,10 +1619,10 @@ function attkUptd(){
 							}
 							if(rght){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1617,10 +1635,10 @@ function attkUptd(){
 							}
 							if(lft){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1632,10 +1650,10 @@ function attkUptd(){
 							}
 							if(up){
 								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1647,10 +1665,10 @@ function attkUptd(){
 							}
 							if(dwn){
 								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1662,10 +1680,10 @@ function attkUptd(){
 							}
 							if(uprght){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1677,10 +1695,10 @@ function attkUptd(){
 							}
 							if(uplft){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1692,10 +1710,10 @@ function attkUptd(){
 							}
 							if(dwnrght){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1707,10 +1725,10 @@ function attkUptd(){
 							}
 							if(dwnlft){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1727,10 +1745,10 @@ function attkUptd(){
 							}
 							if(rght){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1742,10 +1760,10 @@ function attkUptd(){
 							}
 							if(lft){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1757,10 +1775,10 @@ function attkUptd(){
 							}
 							if(up){
 								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1772,10 +1790,10 @@ function attkUptd(){
 							}
 							if(dwn){
 								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1792,10 +1810,10 @@ function attkUptd(){
 							}
 							if(uprght){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1807,10 +1825,10 @@ function attkUptd(){
 							}
 							if(uplft){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1822,10 +1840,10 @@ function attkUptd(){
 							}
 							if(dwnrght){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1837,10 +1855,10 @@ function attkUptd(){
 							}
 							if(dwnlft){
 								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W"){
+								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
 									attackedW.push(attksqr);
 								}
-								if(pcchk.id[0]=="B"){
+								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
 									attackedB.push(attksqr);
 								}
 								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1850,7 +1868,7 @@ function attkUptd(){
 						}
 					}else if(promotion[(parseInt(pcchk.id[5])-1)]=="Wknight" || promotion[(parseInt(pcchk.id[5])+7)]=="Bknight" && tempMoveTo!=squares[i]){
 						let a="a",ch1="1",h="h",ch8="8";
-						if(pcchk.id[0]=="W"){
+						if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wknight"){
 							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 							}
@@ -1876,7 +1894,7 @@ function attkUptd(){
 								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
 							}
 						}	
-						if(pcchk.id[0]=="B"){
+						if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])-1)]=="Bknight"){
 							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 							}
@@ -2478,6 +2496,13 @@ function place(x_final, y_final) {
 						let xm=automovedtosqr.getBoundingClientRect().left-pieceautomoved.getBoundingClientRect().left;
 						let ym=(automovedtosqr.getBoundingClientRect().top+scrollY)-(pieceautomoved.getBoundingClientRect().top+scrollY);
 						emptDiv.append(document.getElementById(pieceautomovedid));
+						let temp=dragValue;	
+						let temp2=fromsqr;
+						dragValue=pieceautomoved;
+						fromsqr=automovedfrmsqr;
+						canGo(automovedtosqr,true);
+						dragValue=temp;
+						fromsqr=temp2;
 						pieceautomoved.style.left=automovedfrmsqr.getBoundingClientRect().left+"px";
 						pieceautomoved.style.top=(automovedfrmsqr.getBoundingClientRect().top+scrollY)+"px";
 						gsap.to("#"+pieceautomoved.id,{x: xm, y: ym, duration: 0.5});
@@ -2499,8 +2524,12 @@ function place(x_final, y_final) {
 			dragValue.style.top=(fromsqr.getBoundingClientRect().top+scrollY)+"px";
 		}
 		dragValue=null;
-		if(mateCheck()){
-			emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
+		if(!isPuzzle && mateCheck()){
+			if(stalemate){
+				emptDiv.innerHTML="stalemate"+emptDiv.innerHTML;
+			}else{
+				emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
+			}
 		}
 		attkUptd();
 		/*for(let i=0;i<attackedB.length;i++){
