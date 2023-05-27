@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="Chess.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body bgcolor="#312e2b" onload="drag('Bpawn1'), drag('Bpawn2'), drag('Bpawn3'), drag('Bpawn4'), drag('Bpawn5'), drag('Bpawn6'), drag('Wpawn1'), drag('Wpawn2'), drag('Wpawn3'), drag('Wpawn4'), drag('Wpawn5'), drag('Wpawn6'), drag('Wpawn7'), drag('Wpawn8'), drag('Bking'), drag('Wking'), drag('Brook1'), drag('Wrook1'), drag('Wrook2'), drag('Bknight1'), drag('Bknight2'), drag('Wbishop1'), drag('Bbishop1'), drag('Bbishop2'), drag('Bqueen'), drag('Wqueen')">
+        
+        <div id="BPromotion"><img id="PromToBbishop" class="prPiece" src="Chess_bdt60.png"><img id="PromToBrook" class="prPiece" src="Chess_rdt60.png"><img id="PromToBqueen" class="prPiece" src="Chess_qdt60.png"><img id="PromToBknight" class="prPiece" src="Chess_ndt60.png"></div>
+        <div id="WPromotion"><img id="PromToWbishop" class="prPiece" src="Chess_blt60.png"><img id="PromToWrook" class="prPiece" src="Chess_rlt60.png"><img id="PromToWqueen" class="prPiece" src="Chess_qlt60.png"><img id="PromToWknight" class="prPiece" src="Chess_nlt60.png"></div>
+        <div class="row" id="row8" draggable="false">
+            <div class="W square" id="a8" draggable="false">Brook1<img class="piece" id="Brook1" src="Chess_rdt60.png" draggable="false"></div>
+            <div class="B square" id="b8" draggable="false"></div>
+            <div class="W square" id="c8" draggable="false">Bbishop1<img class="piece" id="Bbishop1" src="Chess_bdt60.png" draggable="false"></div>
+            <div class="B square" id="d8" draggable="false">Bqueen<img class="piece" id="Bqueen" src="Chess_qdt60.png" draggable="false"></div>
+            <div class="W square" id="e8" draggable="false"></div>
+            <div class="B square" id="f8" draggable="false"></div>
+            <div class="W square" id="g8" draggable="false"></div>
+            <div class="B square" id="h8" draggable="false"></div>
+        </div>
+        <div class="row" id="row7" draggable="false">
+            <div class="B square" id="a7" draggable="false">Bpawn1<img class="piece" id="Bpawn1" src="Chess_pdt60.png" draggable="false"></div>
+            <div class="W square" id="b7" draggable="false">Bpawn2<img class="piece" id="Bpawn2" src="Chess_pdt60.png" draggable="false"></div>
+            <div class="B square" id="c7" draggable="false">Bpawn3<img class="piece" id="Bpawn3" src="Chess_pdt60.png" draggable="false"></div>
+            <div class="W square" id="d7" draggable="false"></div>
+            <div class="B square" id="e7" draggable="false"></div>
+            <div class="W square" id="f7" draggable="false">Wbishop1<img class="piece" id="Wbishop1" src="Chess_blt60.png" draggable="false"></div>
+            <div class="B square" id="g7" draggable="false"></div>
+            <div class="W square" id="h7" draggable="false">Bking<img class="piece" id="Bking" src="Chess_kdt60.png" draggable="false"></div>
+        </div>
+        <div class="row" id="row6" draggable="false">
+            <div class="W square" id="a6" draggable="false"></div>
+            <div class="B square" id="b6" draggable="false"></div>
+            <div class="W square" id="c6" draggable="false">Bknight1<img class="piece" id="Bknight1" src="Chess_ndt60.png" draggable="false"></div>
+            <div class="B square" id="d6" draggable="false">Bpawn4<img class="piece" id="Bpawn4" src="Chess_pdt60.png" draggable="false"></div>
+            <div class="W square" id="e6" draggable="false"></div>
+            <div class="B square" id="f6" draggable="false"></div>
+            <div class="W square" id="g6" draggable="false"></div>
+            <div class="B square" id="h6" draggable="false">Bpawn6<img class="piece" id="Bpawn6" src="Chess_pdt60.png" draggable="false"></div>
+        </div>
+        <div class="row" id="row5" draggable="false">
+            <div class="B square" id="a5" draggable="false"></div>
+            <div class="W square" id="b5" draggable="false"></div>
+            <div class="B square" id="c5" draggable="false">Bbishop2<img class="piece" id="Bbishop2" src="Chess_bdt60.png" draggable="false"></div>
+            <div class="W square" id="d5" draggable="false">Bknight2<img class="piece" id="Bknight2" src="Chess_ndt60.png" draggable="false"></div>
+            <div class="B square" id="e5" draggable="false">Bpawn5<img class="piece" id="Bpawn5" src="Chess_pdt60.png" draggable="false"></div>
+            <div class="W square" id="f5" draggable="false"></div>
+            <div class="B square" id="g5" draggable="false"></div>
+            <div class="W square" id="h5" draggable="false">Wqueen<img class="piece" id="Wqueen" src="Chess_qlt60.png" draggable="false"></div>
+        </div>
+        <div class="row" id="row4" draggable="false">
+            <div class="W square" id="a4" draggable="false"></div>
+            <div class="B square" id="b4" draggable="false"></div>
+            <div class="W square" id="c4" draggable="false"></div>
+            <div class="B square" id="d4" draggable="false"></div>
+            <div class="W square" id="e4" draggable="false">Wpawn5<img class="piece" id="Wpawn5" src="Chess_plt60.png" draggable="false"></div>
+            <div class="B square" id="f4" draggable="false"></div>
+            <div class="W square" id="g4" draggable="false"></div>
+            <div class="B square" id="h4" draggable="false"></div>
+        </div>
+        <div class="row" id="row3" draggable="false">
+            <div class="B square" id="a3" draggable="false"></div>
+            <div class="W square" id="b3" draggable="false"></div>
+            <div class="B square" id="c3" draggable="false"></div>
+            <div class="W square" id="d3" draggable="false">Wpawn4<img class="piece" id="Wpawn4" src="Chess_plt60.png" draggable="false"></div>
+            <div class="B square" id="e3" draggable="false"></div>
+            <div class="W square" id="f3" draggable="false"></div>
+            <div class="B square" id="g3" draggable="false"></div>
+            <div class="W square" id="h3" draggable="false"></div>
+        </div>
+        <div class="row" id="row2" draggable="false">
+            <div class="W square" id="a2" draggable="false">Wpawn1<img class="piece" id="Wpawn1" src="Chess_plt60.png" draggable="false"></div>
+            <div class="B square" id="b2" draggable="false">Wpawn2<img class="piece" id="Wpawn2" src="Chess_plt60.png" draggable="false"></div>
+            <div class="W square" id="c2" draggable="false">Wpawn3<img class="piece" id="Wpawn3" src="Chess_plt60.png" draggable="false"></div>
+            <div class="B square" id="d2" draggable="false"></div>
+            <div class="W square" id="e2" draggable="false"></div>
+            <div class="B square" id="f2" draggable="false">Wpawn6<img class="piece" id="Wpawn6" src="Chess_plt60.png" draggable="false"></div>
+            <div class="W square" id="g2" draggable="false">Wpawn7<img class="piece" id="Wpawn7" src="Chess_plt60.png" draggable="false"></div>
+            <div class="B square" id="h2" draggable="false">Wpawn8<img class="piece" id="Wpawn8" src="Chess_plt60.png" draggable="false"></div>
+        </div>
+        <div class="row" id="row1" draggable="false">
+            <div class="B square" id="a1" draggable="false">Wrook1<img class="piece" id="Wrook1" src="Chess_rlt60.png" draggable="false"></div>
+            <div class="W square" id="b1" draggable="false"></div>
+            <div class="B square" id="c1" draggable="false"></div>
+            <div class="W square" id="d1" draggable="false"></div>
+            <div class="B square" id="e1" draggable="false">Wking<img class="piece" id="Wking" src="Chess_klt60.png" draggable="false"></div>
+            <div class="W square" id="f1" draggable="false"></div>
+            <div class="B square" id="g1" draggable="false"></div>
+            <div class="W square" id="h1" draggable="false">Wrook2<img class="piece" id="Wrook2" src="Chess_rlt60.png" draggable="false"></div>
+        </div>
+        <a onclick="window.open('Puzzle6.html','_self')"><img src="arrow-right.png" id="arrow_back" draggable="false"></a>
+        <a onclick="window.open('Puzzle8.html','_self')"><img src="arrow-right.png" id="arrow_front" draggable="false"></a>
+        <div id="emptyDiv" draggable="false"></div>
+        <script src="gsap-public\umd\gsap.js"></script>
+        <script src="Puzzle[7].js"></script>
+    </body>
+</html>
