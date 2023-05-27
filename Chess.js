@@ -2440,7 +2440,7 @@ function place(x_final, y_final) {
 			}
 		}
 		for(let i=0;i<64;i++){
-			if(squares[i].getBoundingClientRect().x<=x_final && squares[i].getBoundingClientRect().left+100>x_final && squares[i].getBoundingClientRect().top<=y_final && squares[i].getBoundingClientRect().top+100>y_final){
+			if(squares[i].getBoundingClientRect().x<=x_final && squares[i].getBoundingClientRect().left+squares[i].clientWidth>x_final && squares[i].getBoundingClientRect().top<=y_final && squares[i].getBoundingClientRect().top+squares[i].clientHeight>y_final){
 				if(canGo(squares[i],true)){
 					if(dragValue.id[1]=="p" && ((squares[i].id[1]=="8" && dragValue.id[0]=="W" && promotion[parseInt(dragValue.id[5])-1]=="") || (squares[i].id[1]=="1" && dragValue.id[0]=="B" && promotion[parseInt(dragValue.id[5])+7]==""))){
 						if(dragValue.id[0]=="W"){
