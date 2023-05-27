@@ -37,8 +37,8 @@ function drag(piece){
 		let x=e.pageX;
 		let y=e.pageY;
 		emptDiv.append(document.getElementById(drpiece.id));
-		drpiece.style.left=(x-50)+"px";
-		drpiece.style.top=(y-50)+"px";
+		drpiece.style.left=(x-(drpiece.clientWidth/2))+"px";
+		drpiece.style.top=(y-(drpiece.clientHeight/2))+"px";
 		isDrag=true;
    		dragValue=drpiece;
  	});
@@ -47,8 +47,8 @@ function drag(piece){
 		let x=e.touches[0].pageX;
 		let y=e.touches[0].pageY;
 		emptDiv.append(document.getElementById(drpiece.id));
-		drpiece.style.left=(x-50)+"px";
-		drpiece.style.top=(y-50)+"px";
+		drpiece.style.left=(x-(drpiece.clientWidth/2))+"px";
+		drpiece.style.top=(y-(drpiece.clientWidth/2))+"px";
 		isDrag=true;
 		dragValue=drpiece;
 	});
@@ -2514,8 +2514,8 @@ function pointer(x,y){
 	if(isDrag==true ){
 		if((isPuzzle == false)||(move%2==1 && dragValue.id[0]=="W")||(move%2==0 && dragValue.id[0]=="B")){
 			emptDiv.append(document.getElementById(dragValue.id));
-			dragValue.style.left=(x-50)+"px";
-			dragValue.style.top=(y-50)+"px";
+			dragValue.style.left=(x-(dragValue.clientWidth/2))+"px";
+			dragValue.style.top=(y-(dragValue.clientHeight/2))+"px";
 		}
 	}
 }
