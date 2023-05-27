@@ -10,8 +10,8 @@ body {
   background-color: #c24529;
 }
 .square {
-    height: 100px;
-    width: 100px;
+    height: 12vh;
+    width: 12vh;
     font-size:0px;
     padding: 0px;
     left: 532px;
@@ -26,8 +26,8 @@ body {
     object-fit: cover;
     cursor: pointer;
     font-size: 0px;
-    height: 100px;
-    width: 100px;
+    height: 12vh;
+    width: 12vh;
     /*transition: width 250ms ease, height 250ms ease;*/
     position: absolute;
     user-select: none;
@@ -35,8 +35,15 @@ body {
     /*display: inline-block;*/
 }
 .prPiece{
-    height: 200px;
-    width: 200px;
+    position: relative;
+    height: 23vh;
+    width: 23vh;
+    margin-left: 10.5vw;
+    top: 38.5vh;
+}
+.prPiece:hover{
+    background-color: black;
+    cursor: pointer;
 }
 #WPromotion{
     width: 100vw;
@@ -45,8 +52,7 @@ body {
     opacity: 0%;
     position: fixed;
     z-index: 5;
-    align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     pointer-events: none;
 }
 #BPromotion{
@@ -56,8 +62,7 @@ body {
     opacity: 0%;
     position: fixed;
     z-index: 5;
-    align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     pointer-events: none;
 }
 @keyframes anim{
