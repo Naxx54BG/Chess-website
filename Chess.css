@@ -2,6 +2,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
+    overflow-y: hidden;
 }
 .W { 
     background-color: #ffffff;
@@ -14,13 +15,33 @@ body {
     width: 12vh;
     font-size:0px;
     padding: 0px;
-    left: 532px;
+    left: 26.5vw;
+    top: 2vh;
     z-index: 1;
     position: relative;
   }
 .row {
     display: flex;
     position: relative;
+}
+#arrow_front{
+    display: inline;
+    width: 5vw;
+    height: 5vw;
+}
+#arrow_back{
+    display: inline;
+    margin-left: 5vw;
+    margin-right: 80vw;
+    width: 5vw;
+    height: 5vw;
+    rotate: 180deg;
+}
+#arrow_front:hover{
+    background-color: #272626;
+}
+#arrow_back:hover{
+    background-color: #272626;
 }
 .piece {
     object-fit: cover;
