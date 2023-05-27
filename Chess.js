@@ -1608,7 +1608,7 @@ function attkUptd(){
 			}
 			let pcchk=document.getElementById(pcstr);
 			if(pcchk.id[1]=="p" && tempMoveTo!=squares[i]){
-				if(promotion[(parseInt(pcchk.id[5])-1)]!="" || promotion[(parseInt(pcchk.id[5])+7)]!=""){
+				if((promotion[(parseInt(pcchk.id[5])-1)]!="" && pcchk.id[0]=="W") || (promotion[(parseInt(pcchk.id[5])+7)]!="" && pcchk.id[0]=="B")){
 					if(promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen" || promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
 						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 						for(let j=1;j<8;j++){
