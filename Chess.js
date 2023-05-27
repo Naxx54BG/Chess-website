@@ -32,7 +32,8 @@ for(let i=0;i<16;i++){
 function drag(piece){
 	let drpiece=document.getElementById(piece);
  	//drpiece.style.position="relative";
-  	drpiece.onmousedown=function(e){
+ 	drpiece.addEventListener("mousedown", function(e) {
+		e.preventDefault();
 		let x=e.pageX;
 		let y=e.pageY;
 		emptDiv.append(document.getElementById(drpiece.id));
@@ -40,7 +41,17 @@ function drag(piece){
 		drpiece.style.top=(y-50)+"px";
 		isDrag=true;
    		dragValue=drpiece;
- 	}
+ 	});
+	drpiece.addEventListener("touchstart", function(e) {
+		e.preventDefault();
+		let x=e.touches[0].pageX;
+		let y=e.touches[0].pageY;
+		emptDiv.append(document.getElementById(drpiece.id));
+		drpiece.style.left=(x-50)+"px";
+		drpiece.style.top=(y-50)+"px";
+		isDrag=true;
+		dragValue=drpiece;
+	});
 }
 
 function take(sqr){
@@ -2402,7 +2413,7 @@ promWknight.onclick=function(){
 	}, 280);
 }
 
-document.onmouseup=function(e){
+function place(x_final, y_final) {
 	if(isDrag){
 		lstDrag=dragValue;
 		for(let i=0;i<64;i++){
@@ -2429,7 +2440,7 @@ document.onmouseup=function(e){
 			}
 		}
 		for(let i=0;i<64;i++){
-			if(squares[i].getBoundingClientRect().x<=e.clientX && squares[i].getBoundingClientRect().left+100>e.clientX && squares[i].getBoundingClientRect().top<=e.clientY && squares[i].getBoundingClientRect().top+100>e.clientY){
+			if(squares[i].getBoundingClientRect().x<=x_final && squares[i].getBoundingClientRect().left+100>x_final && squares[i].getBoundingClientRect().top<=y_final && squares[i].getBoundingClientRect().top+100>y_final){
 				if(canGo(squares[i],true)){
 					if(dragValue.id[1]=="p" && ((squares[i].id[1]=="8" && dragValue.id[0]=="W" && promotion[parseInt(dragValue.id[5])-1]=="") || (squares[i].id[1]=="1" && dragValue.id[0]=="B" && promotion[parseInt(dragValue.id[5])+7]==""))){
 						if(dragValue.id[0]=="W"){
@@ -2499,25 +2510,36 @@ document.onmouseup=function(e){
 	}
 }
 
-document.onmousemove=function(e){
-	let x=e.pageX;
-	let y=e.pageY;
+function pointer(x,y){
 	if(isDrag==true ){
-		if(isPuzzle){
-			if(move%2==1 && dragValue.id[0]=="W"){
-				emptDiv.append(document.getElementById(dragValue.id));
-				dragValue.style.left=(x-50)+"px";
-				dragValue.style.top=(y-50)+"px";
-			}
-			if(move%2==0 && dragValue.id[0]=="B"){
-				emptDiv.append(document.getElementById(dragValue.id));
-				dragValue.style.left=(x-50)+"px";
-				dragValue.style.top=(y-50)+"px";
-			}
-		}else{
+		if((isPuzzle == false)||(move%2==1 && dragValue.id[0]=="W")||(move%2==0 && dragValue.id[0]=="B")){
 			emptDiv.append(document.getElementById(dragValue.id));
 			dragValue.style.left=(x-50)+"px";
 			dragValue.style.top=(y-50)+"px";
 		}
 	}
 }
+
+document.addEventListener("mouseup", function(e){
+	x = e.clientX;
+	y = e.clientY;
+	place(x,y);
+});
+document.addEventListener("touchend", function(e){
+	e.preventDefault();
+	x = e.changedTouches[0].clientX;
+	y = e.changedTouches[0].clientY;
+	place(x,y);
+});
+
+document.addEventListener("mousemove",function(e){
+	let x=e.pageX;
+	let y=e.pageY;
+	pointer(x,y);
+});
+document.addEventListener("touchmove",function(e){
+	e.preventDefault();
+	let x=e.touches[0].pageX;
+	let y=e.touches[0].pageY;
+	pointer(x,y);
+},{passive: false });
