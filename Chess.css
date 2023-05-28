@@ -4,6 +4,24 @@ body {
     margin: 0;
     overflow-y: hidden;
 }
+.ContentLink{
+    font-size: 3vh;
+    /*styling*/
+    color: #ffffff;
+    background-color: #E96245;
+    border: none;
+    padding-top: 1.875vh;
+    padding-bottom: 1.875vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    margin-left: 74.8vw;
+    border-radius: 3vh;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+  .ContentLink:hover{
+    background-color: #ac4832;
+  }
 .W { 
     background-color: #ffffff;
 }
@@ -30,6 +48,12 @@ body {
     z-index: 4;
     width: 2.7vh;
     height: 2.7vh;
+}
+#PuzzleNum{
+    font-size: 14vh;
+    color: white;
+    font-weight: 700;
+    margin-left: 8vw;
 }
 #arrow_front{
     display: inline;
