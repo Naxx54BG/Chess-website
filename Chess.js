@@ -29,7 +29,7 @@ let lstDrag;
 let winDiv=document.getElementById("WinnerDiv");
 
 for(let i=0;i<8;i++){
-	squares[i*8].style.marginLeft=(window.innerWidth-(1.8*window.innerHeight))/2+"px";//lol
+	squares[(i*8)+7].style.marginRight=(window.innerWidth-(0.96*window.innerHeight))/2+"px";//lol
 }
 
 for(let i=0;i<16;i++){
