@@ -241,7 +241,7 @@ body{
   position: relative;
   width: 100vw;
   height: 30vh;
-  margin-top: 13.5vh;
+  margin-top: 0vh;
   background-color: rgb(26, 24, 24);
   z-index: 7;
   opacity: 90%;
@@ -304,7 +304,7 @@ body{
   padding-bottom: 1.875vh;
   padding-left: 2.5vh;
   padding-right: 2.5vh;
-  margin-top: 20vh;
+  margin-top: 10vh;
   margin-left: auto;
   margin-right: auto;
   border-radius: 3vh;
@@ -339,7 +339,7 @@ background-color: #c24529;
   font-size:0px;
   padding: 0px;
   /*left: 45vh;*/
-  top: 10vh;
+  top: 3.7vh;
   z-index: 1;
   position: relative;
 }
