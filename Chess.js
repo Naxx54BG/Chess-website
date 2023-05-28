@@ -5,6 +5,7 @@ let isPuzzle=false;//пъзел ли е
 let fromsqr;
 let emptDiv=document.getElementById("emptyDiv");
 let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".Bsquare");
+//let rows=document.querySelectorAll(".row");
 let ovrSqr;
 let hasMoved=[];
 let enPass=[];
@@ -25,6 +26,11 @@ let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
 let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
 let lstDrag;
+let winDiv=document.getElementById("WinnerDiv");
+
+for(let i=0;i<8;i++){
+	squares[i*8].style.marginLeft=(window.innerWidth/2-(0.96*window.innerHeight)/2-100)/2+"px";
+}
 
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
@@ -2525,10 +2531,29 @@ function place(x_final, y_final) {
 		}
 		dragValue=null;
 		if(!isPuzzle && mateCheck()){
+			for(let i=0;i<64;i++){
+				let pcstr="";
+				let whole_name=squares[i].innerHTML;
+				for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
+					pcstr=pcstr+whole_name[k]; 
+				}
+				if(pcstr!=""){
+					let retpc=document.getElementById(pcstr);
+					squares[i].append(document.getElementById(pcstr));
+					retpc.style.left=squares[i].style.left;
+					retpc.style.top=squares[i].style.top;
+				}
+			}
+			//let RestartBut=document.getElementById("resBut");
+			//RestartBut.style.display="flex";
 			if(stalemate){
-				emptDiv.innerHTML="stalemate"+emptDiv.innerHTML;
+				winDiv.innerHTML="Stalemate";
 			}else{
-				emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
+				if(Wcheck){
+					winDiv.innerHTML="White Wins!";
+				}else{
+					winDiv.innerHTML="Black Wins!";
+				}
 			}
 		}
 		attkUptd();
