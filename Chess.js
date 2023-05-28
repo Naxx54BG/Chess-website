@@ -10,6 +10,7 @@ let ovrSqr;
 let hasMoved=[];
 let enPass=[];
 let corrm;
+let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
 if(!isPuzzle){
 corrm={
 	frm: [/*"",*/"g2","g7","f1","f8","g1","g8","e1","e8","a2","f6"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
@@ -101,8 +102,6 @@ let tempMoveTo;
 let tempMoveFrom;
 let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
-let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
-
 if(isPuzzle==false){
 let lstDrag;
 let winDiv=document.getElementById("WinnerDiv");
