@@ -25,11 +25,11 @@ let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
 let move=2;// ако е пъзел 1-ти си белите, 2-ти си черните
 let lstDrag;
-let arrwFront=document.getElementById("arrow_front");
-let arrwBack=document.getElementById("arrow_back");
 
-gsap.set("#"+arrwFront.id,{x: "0",y: "-50vh"});
-gsap.set("#"+arrwBack.id,{x: "0",y: "-50vh"});
+gsap.set("#arrow_front",{x: "0",y: "-50vh"});
+gsap.set("#arrow_back",{x: "0",y: "-50vh"});
+gsap.set("#PuzzleNum",{x: "0",y: "-99vh"});
+gsap.set("#retBut",{x: "0",y: "-111vh"});
 
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
