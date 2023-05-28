@@ -2492,7 +2492,18 @@ function place(x_final, y_final) {
 					fromsqr.innerHTML="";
 					move++;
 					if(WinPzl){
-						emptDiv.innerHTML="YOU WON pzzl!!!!!!"+emptDiv.innerHTML;
+						let h=squares[i].getBoundingClientRect().height;
+						let lf=squares[i].getBoundingClientRect().left;
+						let tp=squares[i].getBoundingClientRect().top;
+						let checkmark=document.getElementById("checkmark");
+						checkmark.style.display="block";
+						let hm=checkmark.getBoundingClientRect().height;
+						console.log(hm);
+						checkmark.style.left=(lf+h-(hm/2)-1.5)+"px";
+						checkmark.style.top=(tp-(hm/2)-1.5)+"px";
+						squares[i].style.height=(h-20)+"px";
+						squares[i].style.width=(h-20)+"px";
+						squares[i].style.border="10px solid #23c24e";
 					}
 					if(isPuzzle && !WinPzl){
 						let automovedfrmsqr=document.getElementById(corrm.frm[move-1]);
