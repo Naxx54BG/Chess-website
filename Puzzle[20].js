@@ -1,17 +1,16 @@
 let dragValue;
 let stalemate=false;
 let isDrag=false;
-let isPuzzle=false;//пъзел ли е
+let isPuzzle=true;//пъзел ли е
 let fromsqr;
 let emptDiv=document.getElementById("emptyDiv");
 let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".Bsquare");
-//let rows=document.querySelectorAll(".row");
 let ovrSqr;
 let hasMoved=[];
 let enPass=[];
 let corrm={
-	frm: [/*"",*/"g2","g7","f1","f8","g1","g8","e1","e8","a2","f6"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
-	to: [/*"",*/"g4","g5","h3","h6","f3","f6","g1","g8","a3","g4"],
+	frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+	to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
 };
 let castleMove=8;
 let promotion=["","","","","","","","","","","","","","","",""];
@@ -24,13 +23,13 @@ let tempMoveTo;
 let tempMoveFrom;
 let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
-let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
+let move=2;// ако е пъзел 1-ти си белите, 2-ти си черните
 let lstDrag;
-let winDiv=document.getElementById("WinnerDiv");
+let arrwFront=document.getElementById("arrow_front");
+let arrwBack=document.getElementById("arrow_back");
 
-for(let i=0;i<8;i++){
-	squares[(i*8)].style.marginLeft=(window.innerWidth-(0.8*window.innerHeight))/2+"px";//lol4
-}
+gsap.set("#"+arrwFront.id,{x: "0",y: "-50vh"});
+gsap.set("#"+arrwBack.id,{x: "0",y: "-50vh"});
 
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
@@ -80,6 +79,10 @@ function canGo(tosqr,canTake){
 			if(move==winMoveForPzl){
 				WinPzl=true;
 			}
+			if(tosqr.innerHTML!=""){
+				take(tosqr);
+			}
+			return true;
 		}else{
 			return false;
 		}
@@ -2489,7 +2492,7 @@ function place(x_final, y_final) {
 					fromsqr.innerHTML="";
 					move++;
 					if(WinPzl){
-						//win
+						emptDiv.innerHTML="YOU WON pzzl!!!!!!"+emptDiv.innerHTML;
 					}
 					if(isPuzzle && !WinPzl){
 						let automovedfrmsqr=document.getElementById(corrm.frm[move-1]);
@@ -2509,6 +2512,9 @@ function place(x_final, y_final) {
 						canGo(automovedtosqr,true);
 						dragValue=temp;
 						fromsqr=temp2;
+						if(automovedtosqr.innerHTML!=""){
+							take(automovedtosqr);
+						}
 						pieceautomoved.style.left=automovedfrmsqr.getBoundingClientRect().left+"px";
 						pieceautomoved.style.top=(automovedfrmsqr.getBoundingClientRect().top+scrollY)+"px";
 						gsap.to("#"+pieceautomoved.id,{x: xm, y: ym, duration: 0.5});
@@ -2531,29 +2537,10 @@ function place(x_final, y_final) {
 		}
 		dragValue=null;
 		if(!isPuzzle && mateCheck()){
-			for(let i=0;i<64;i++){
-				let pcstr="";
-				let whole_name=squares[i].innerHTML;
-				for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
-					pcstr=pcstr+whole_name[k]; 
-				}
-				if(pcstr!=""){
-					let retpc=document.getElementById(pcstr);
-					squares[i].append(document.getElementById(pcstr));
-					retpc.style.left=squares[i].style.left;
-					retpc.style.top=squares[i].style.top;
-				}
-			}
-			//let RestartBut=document.getElementById("resBut");
-			//RestartBut.style.display="flex";
 			if(stalemate){
-				winDiv.innerHTML="Stalemate";
+				emptDiv.innerHTML="stalemate"+emptDiv.innerHTML;
 			}else{
-				if(Wcheck){
-					winDiv.innerHTML="White Wins!";
-				}else{
-					winDiv.innerHTML="Black Wins!";
-				}
+				emptDiv.innerHTML="YOU WON!!!!!!"+emptDiv.innerHTML;
 			}
 		}
 		attkUptd();

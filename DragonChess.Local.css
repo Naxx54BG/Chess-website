@@ -320,6 +320,13 @@ body{
   font-weight: 600;
   color: white;
 }
+#checkmark{
+  display: none;
+  position: absolute;
+  z-index: 4;
+  width: 2.7vh;
+  height: 2.7vh;
+}
 .W { 
   background-color: #ffffff;
 }

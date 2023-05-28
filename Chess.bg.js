@@ -2547,12 +2547,12 @@ function place(x_final, y_final) {
 			//let RestartBut=document.getElementById("resBut");
 			//RestartBut.style.display="flex";
 			if(stalemate){
-				winDiv.innerHTML="Stalemate";
+				winDiv.innerHTML="Пат";
 			}else{
 				if(Wcheck){
-					winDiv.innerHTML="White Wins!";
+					winDiv.innerHTML="Белите Печелят!";
 				}else{
-					winDiv.innerHTML="Black Wins!";
+					winDiv.innerHTML="Черните Печелят!";
 				}
 			}
 		}
