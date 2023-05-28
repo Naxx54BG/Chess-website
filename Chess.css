@@ -59,6 +59,7 @@ body {
     display: inline;
     width: 5vw;
     height: 5vw;
+    cursor: pointer;
 }
 #arrow_back{
     display: inline;
@@ -67,6 +68,7 @@ body {
     width: 5vw;
     height: 5vw;
     rotate: 180deg;
+    cursor: pointer;
 }
 #arrow_front:hover{
     background-color: #272626;
