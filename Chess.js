@@ -28,9 +28,9 @@ let move=1;// ако е пъзел 1-ти си белите, 2-ти си чер�
 let lstDrag;
 let winDiv=document.getElementById("WinnerDiv");
 
-for(let i=0;i<8;i++){
-	squares[(i*8)].style.marginLeft=(window.innerWidth-(1.4*window.innerHeight))/2+"px";//lol1
-}
+//for(let i=0;i<8;i++){
+//	squares[(i*8)].style.marginLeft=(window.innerWidth-(1.4*window.innerHeight))/2+"px";//lol1
+//}
 
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
