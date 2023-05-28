@@ -237,6 +237,7 @@ body{
   position: relative;
   width: 100vw;
   height: 30vh;
+  margin-top: 13.5vh;
   background-color: rgb(26, 24, 24);
   z-index: 7;
   opacity: 90%;
@@ -285,6 +286,35 @@ body{
 }
 .ClickableText:hover{
   text-decoration:underline;
+}
+.ContentLink{
+  font-size: 3vh;
+  /*styling*/
+  position: relative;
+  margin-top: 0.75vh;
+  color: #ffffff;
+  background-color: #E96245;
+  border: none;
+  display: block;
+  padding-top: 1.875vh;
+  padding-bottom: 1.875vh;
+  padding-left: 2.5vh;
+  padding-right: 2.5vh;
+  margin-top: 20vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 3vh;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+.ContentLink:hover{
+  background-color: #ac4832;
+}
+#WinnerDiv{
+  text-align: center;
+  font-size: 15vh;
+  font-weight: 600;
+  color: white;
 }
 .W { 
   background-color: #ffffff;
