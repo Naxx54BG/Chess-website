@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="icon" href="Logos/TitleMenuIcon.png">
+
+    <title>Dragon Chess</title>
+
+    <meta charset="UTF-8">
+  </head>
+
+
+  <body bgcolor="#312e2b">
+    
+
+    <div id="Navigation">
+
+      <div><img src="Logos/logoDragonChess.png" id="Logo"></div>
+      <div id="NavigationSpacing">
+          <div></div><!--Нарочно е сложен празен разделител, за да има празно пространство над бутоните-->
+          <div id="NavigationMenu">
+
+              <div><p id="Title"><strong><font color="#E96245">Dragon</font><font color="#BCBBB7">Chess</font></strong></p></div>
+              <div>
+
+                <div class="Button"><a onclick="window.open('index.bg.html','_self')"><button class="InactiveButton"><strong>НАЧАЛО</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.News.bg.html','_self')"><button class="InactiveButton"><strong>НОВИНИ</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Campaign.bg.html','_self')"><button class="ActiveButton"><strong>ПЪЗЕЛИ</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Local.bg.html','_self')"><button class="InactiveButton"><strong>ЛОКАЛНА ИГРА</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Openings.bg.html','_self')"><button class="InactiveButton"><strong>ДЕБЮТИ</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Endgames.bg.html','_self')"><button class="InactiveButton"><strong>ЕНДШПИЛИ</strong></button></a></div>
+                <div class="Button"><a onclick="window.open('DragonChess.Dailypuzzle.bg.html','_self')"><button class="InactiveButton"><strong>ДНЕВЕН ПЪЗЕЛ</strong></button></a></div>
+
+
+                <div class="Dropdown">
+                  <button id="DropdownButton"><strong>ЕЗИК   <img src="Sprites/angle-down.png" class="IconArrowDown"></strong></button>
+                  <div class="DropdownMenu"><a href="DragonChess.Campaign.bg.html"><button class="DroppedButton"><strong>БЪЛГАРСКИ</strong> <img src="Flags/Bulgarian.gif" class="Flag"></button></a> <a onclick="window.open('DragonChess.Campaign.html','_self')"><button class="DroppedButton"><strong>ENGLISH</strong> <img src="Flags/English.webp" class="Flag"></button></a></div>
+                </div>
+
+              </div>
+          </div>
+      </div>
+          
+    </div>
+
+    <div id="Art">
+        <div><img src="" class="LeftArt"></div>
+        <div></div>
+        <div><img src="" class="RightArt"></div>
+    </div>
+      
+    <div id="Main">
+      <div id="Content">
+        <div></div>
+        <div>
+        <div class="Box"><p style="margin-bottom:6vh;font-size: 5vh;font-family: Helvetica;text-decoration:solid;color: white;margin: 0;">Започни приключението си тук</p><p>Натисни бутона и ще започне поредица от пъзели. След всеки ще можете да преминете на следващия</p><a onclick="window.open('Puzzle1.html','_self')"><button class="ContentLink">Старт!</button></a> </div>
+
+      </div>
+        <div></div>
+      </div>
+    </div>
+
+    
+    <div id="Footer">
+
+    
+      <div id="FooterSpacing">
+        <div></div>
+        <div>
+          <div class="Info"><div class="Circle"><img src="Sprites/marker.png" class="SpriteFooter"></div><div class="FooterText">Христо Ботев, 519-та улица, №69</div></div>
+          <div class="Info"><div class="Circle"><img src="Sprites/phone-call.png" class="SpriteFooter"></div><div class="FooterText">+35961276372</div></div>
+          <div class="Info"><div class="Circle"><img src="Sprites/envelope.png" class="SpriteFooter"></div><div class="FooterText">dragon.chess@gmail.com</div></div>
+        </div>
+      </div>
+
+
+      <div>
+        <p style="margin-top: 5vh;margin-left: 20vh;color: white;font-size: 2.2vh;">Полезни връзки</p>
+        <a onclick="window.open('DragonChess/About_Us.html','_self')"><p class="ClickableText">За нас</p></a>
+        <a onclick="window.open('DragonChess/Contacts','_self')"><p class="ClickableText">Контакти</p></a>
+        <a onclick="window.open('https://en.wikipedia.org/wiki/Chess','_self')"><p class="ClickableText">Шах в Wikipedia</p></a>
+        <img src="Sprites/facebook.png" class="SocialMedia" style="margin-left: 20vh;">
+        <img src="Sprites/instagram.png" class="SocialMedia">
+        <img src="Sprites/twitter.png" class="SocialMedia">
+        <img src="Sprites/youtube.png" class="SocialMedia">
+      </div>
+
+
+    </div>
+
+  </body>
+
+</html>

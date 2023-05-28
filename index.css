@@ -143,6 +143,10 @@ body{
   pointer-events: none;
 }
 
+.DropdownMenu:active{
+  pointer-events: all;
+}
+
 .DroppedButton{
 
   /*styling*/
