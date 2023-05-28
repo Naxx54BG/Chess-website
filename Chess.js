@@ -101,7 +101,6 @@ let tempMoveTo;
 let tempMoveFrom;
 let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
-// different for different puzzles!
 let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
 
 if(isPuzzle==false){
