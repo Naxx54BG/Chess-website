@@ -327,7 +327,7 @@ background-color: #c24529;
   width: 10vh;
   font-size:0px;
   padding: 0px;
-  left: 45vh;
+  /*left: 45vh;*/
   top: 10vh;
   z-index: 1;
   position: relative;
