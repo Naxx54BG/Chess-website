@@ -1,7 +1,7 @@
 let dragValue;
 let stalemate=false;
 let isDrag=false;
-let isPuzzle=false;//пъзел ли е
+let isPuzzle=parseInt(document.currentScript.getAttribute('isPuzzle'));//пъзел ли е
 let fromsqr;
 let emptDiv=document.getElementById("emptyDiv");
 let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".Bsquare");
@@ -9,10 +9,164 @@ let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".
 let ovrSqr;
 let hasMoved=[];
 let enPass=[];
-let corrm={
+let corrm;
+let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
+if(!isPuzzle){
+	puzzle_number = 0;
+corrm={
 	frm: [/*"",*/"g2","g7","f1","f8","g1","g8","e1","e8","a2","f6"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
 	to: [/*"",*/"g4","g5","h3","h6","f3","f6","g1","g8","a3","g4"],
 };
+}
+else{
+	puzzle_number = parseInt(document.currentScript.getAttribute('puzzle_number'));
+	switch (puzzle_number) {
+	case 0: // daily puzzle
+		corrm={
+			frm: [/*"",*/"d1","c8","f7","c6","d8","b2","d7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"d8","b7","c7","c7","d7","h2","c7"],
+		}
+		break;
+	case 1:
+		corrm={
+			frm: [/*"",*/"g2","e7"],
+			to: [/*"",*/"g4","e2"],
+		};
+		move=2;
+		break;
+	case 2:
+		corrm={
+			frm: [/*"",*/"g2","d4"],
+			to: [/*"",*/"g4","d8"],
+		};
+		move=2;
+		break;
+	case 3:
+		corrm={
+			frm: [/*"",*/"g2","h6"],
+			to: [/*"",*/"g4","a6"],
+		};
+		move=2;
+		break;
+	case 4:
+		corrm={
+			frm: [/*"",*/"c6"],
+			to: [/*"",*/"c8"],
+		};
+		break;
+	case 5:
+		corrm={
+			frm: [/*"",*/"g2","f7","b8","c7","h8","c1"],
+			to: [/*"",*/"g4","c7","a8","c8","c8","c8"],
+		};
+		move=2;
+		break;
+	case 6:
+		corrm={
+			frm: [/*"",*/"g2","g1","d1","g8"],
+			to: [/*"",*/"g4","g8","d8","d8"],
+		};
+		move=2;
+		break;
+	case 7:
+		corrm={
+			frm: [/*"",*/"h5","h7","g6"],
+			to: [/*"",*/"g6","h8","h6"],
+		};
+		break;
+	case 8:
+		corrm={
+			frm: [/*"",*/"g2","d2","b7","d5","a7","a5"],
+			to: [/*"",*/"g4","a5","b6","b6","b6","a8"],
+		};
+		move=2;
+		break;
+	case 9:
+		corrm={
+			frm: [/*"",*/"g2","d2","e8","g5","d8","f5"],
+			to: [/*"",*/"g4","g5","e7","e7","e7","e6"],
+		};
+		move=2;
+		break;
+	case 10:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 11:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		break;
+		move=2;
+	case 12:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+	case 13:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 14:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 15:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 16:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 17:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 18:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 19:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+	case 20:
+		corrm={
+			frm: [/*"",*/"g2","c5","b8","a6","a8","c7"],//ако си черените остави нулевия индекс празен (както съм го направил с коментара)
+			to: [/*"",*/"g4","a6","a8","c7","b8","e8"],
+		};
+		move=2;
+		break;
+}
+}
+
 let castleMove=8;
 let promotion=["","","","","","","","","","","","","","","",""];
 let attackedW=[];
@@ -24,13 +178,18 @@ let tempMoveTo;
 let tempMoveFrom;
 let WinPzl=false;
 let winMoveForPzl=corrm.frm.length;
-let move=1;// ако е пъзел 1-ти си белите, 2-ти си черните
 let lstDrag;
 let winDiv=document.getElementById("WinnerDiv");
 
-for(let i=0;i<8;i++){
-	squares[(i*8)].style.marginLeft=(window.innerWidth-(0.8*window.innerHeight))/2+"px";//lol4
-}
+gsap.set("#arrow_front",{x: "0",y: "-50vh"});
+gsap.set("#arrow_back",{x: "0",y: "-50vh"});
+gsap.set("#PuzzleNum",{x: "0",y: "-99vh"});
+gsap.set("#retBut",{x: "0",y: "-111vh"});
+
+if(puzzle_number == 0)
+	for(let i=0;i<8;i++){
+		squares[(i*8)].style.marginLeft=(window.innerWidth-(0.8*window.innerHeight))/2+"px";//lol4
+	}
 
 for(let i=0;i<16;i++){
 	hasMoved[i]=false;
@@ -84,8 +243,12 @@ function canGo(tosqr,canTake){
 			return false;
 		}
 	}
-	if(dragValue.id[0]=="W" && move%2==1){
-		
+	white_1 = move%2;
+	black_1 = 1 - white_1;
+	player_now = dragValue.id[0];
+	if(white_1) player_other = "B";
+	if(black_1) player_other = "W";
+	if((player_now=="W" && white_1) || (player_now=="B" && black_1)){
 		tempMoveFrom=fromsqr;
 		tempMoveTo=tosqr;
 		attkUptd();
@@ -95,360 +258,59 @@ function canGo(tosqr,canTake){
 			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
 				pcstr=pcstr+whole_name[k]; 
 			}
-			if(((pcstr=="Wking" && tempMoveFrom!=squares[i]) || (dragValue=="Wking" && tempMoveTo==squares[i])) && attackedB.indexOf(squares[i])!=-1){
+			if((white_1 && attackedB.indexOf(squares[i])!=-1)||(black_1 && attackedW.indexOf(squares[i])!=-1))
+			if(((pcstr==player_now+"king" && tempMoveFrom!=squares[i]) || (dragValue==player_now+"king" && tempMoveTo==squares[i]))){
 				return false;
 			}
 		}
 		tempMoveFrom=null;
 		tempMoveTo=null;
-		if(dragValue.id[1]=="p"){
-			if(promotion[(parseInt(dragValue.id[5])-1)]!=""){
-				if(promotion[(parseInt(dragValue.id[5])-1)]=="Wqueen"){
-					if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-						if(fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-						if(fromsqr.id[0]<tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}else if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
-						if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}
-				}
-				if(promotion[(parseInt(dragValue.id[5])-1)]=="Wrook"){
-					if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-						if(fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-						if(fromsqr.id[0]<tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="B"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}
-					return false;
-				}
-				if(promotion[(parseInt(dragValue.id[5])-1)]=="Wbishop"){
-					if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="B"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="B"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="B"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="B"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					console.log("broken");
-					return false;
-				}
-				if(promotion[(parseInt(dragValue.id[5])-1)]=="Wknight"){
-					if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="W"){
-						if(tosqr.innerHTML[0]=="B"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else{
-							return true;
-						}
-					}
-				}
+		piece_now = dragValue.id[1];
+		if(piece_now=="k") piece_now += dragValue.id[2]; // Differentiate between "ki" and "kn"
+		if(piece_now=="p")/*Check for promotions*/{
+			if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]!=""){
+				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"queen" ) piece_now = "q";
+				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"rook"  ) piece_now = "r";
+				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"bishop") piece_now = "b";
+				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"knight") piece_now = "kn";
 			}
-			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+1 && tosqr.innerHTML==""){
-				hasMoved[(parseInt(dragValue.id[5])-1)]=true;
+		}
+		if(piece_now=="p")/*Pawn move*/{
+			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+white_1-black_1 && tosqr.innerHTML==""){
+				hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
 				return true;
 			}
-			if(!hasMoved[(parseInt(dragValue.id[5])-1)] && tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+2 && tosqr.innerHTML==""){
-				let sq=document.getElementById(tosqr.id[0]+(tosqr.id[1]-1));
+			if(!hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)] && tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+2*white_1-2*black_1 && tosqr.innerHTML==""){
+				let sq=document.getElementById(tosqr.id[0]+(tosqr.id[1]-white_1+black_1));
 				if(sq.innerHTML==""){
-					hasMoved[(parseInt(dragValue.id[5])-1)]=true;
-					enPass[(parseInt(dragValue.id[5])-1)]=move;
+					hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
+					enPass[(parseInt(dragValue.id[5])-1+8*black_1)]=move;
 					return true;
 				}
 			}
-			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+1 && tosqr.innerHTML[0]=="B"){
+			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0" + white_1 - black_1 && tosqr.innerHTML[0]==player_other){
 				//console.log("ya");
 				if(canTake){
 					take(tosqr);
 				}
-				hasMoved[(parseInt(dragValue.id[5])-1)]=true;
+				hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
 				return true;
 			}
-			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+1){
+			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0" + white_1 - black_1){
 				//console.log("ya2");
 				let sq=document.getElementById(tosqr.id[0]+fromsqr.id[1]);
 				let pic=document.getElementById(sq.innerHTML);
-				if(sq.innerHTML[0]=="B" && sq.innerHTML[1]=="p" && enPass[(parseInt(pic.id[5])+7)]==move-1){
+				if(sq.innerHTML[0]==player_other && sq.innerHTML[1]=="p" && enPass[(parseInt(pic.id[5])-1+8*white_1)]==move-1){
 					if(canTake){
 						take(sq);
 					}
-					hasMoved[(parseInt(dragValue.id[5])-1)]=true;
+					hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
 					return true;
 				}
 			}
 			return false;
 		}
-		if(dragValue.id[1]=="r"){
+		if(piece_now=="r")/*Rook move*/{
 			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
 				if(fromsqr.id[1]<tosqr.id[1]){
 					for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
@@ -457,14 +319,14 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -476,14 +338,14 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -498,14 +360,14 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -517,14 +379,14 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1]=false;
+						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -534,7 +396,7 @@ function canGo(tosqr,canTake){
 			}
 			return false;
 		}
-		if(dragValue.id[1]=="b"){
+		if(piece_now=="b")/*Bishop move*/{
 			if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
 				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
 					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
@@ -543,7 +405,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -560,7 +422,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -577,7 +439,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -594,7 +456,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -608,7 +470,7 @@ function canGo(tosqr,canTake){
 				return false;
 			}
 		}
-		if(dragValue.id[1]=="q"){
+		if(piece_now=="q")/*Queen move*/{
 			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
 				if(fromsqr.id[1]<tosqr.id[1]){
 					for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
@@ -617,7 +479,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -634,7 +496,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -654,7 +516,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -671,7 +533,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -691,7 +553,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -708,7 +570,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -725,7 +587,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -742,7 +604,7 @@ function canGo(tosqr,canTake){
 							return false;
 						}
 					}
-					if(tosqr.innerHTML[0]=="B"){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
@@ -756,9 +618,9 @@ function canGo(tosqr,canTake){
 				return false;
 			}
 		}
-		if(dragValue.id[1]=="k" && dragValue.id[2]=="n"){
-			if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="W"){
-				if(tosqr.innerHTML[0]=="B"){
+		if(piece_now=="kn")/*Knight move*/{
+			if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!=player_now){
+				if(tosqr.innerHTML[0]==player_other){
 					if(canTake){
 						take(tosqr);
 					}
@@ -768,778 +630,57 @@ function canGo(tosqr,canTake){
 				}
 			}
 		}
-		if(dragValue.id[1]=="k" && dragValue.id[2]=="i"){
+		if(piece_now=="ki")/*King move*/{
+			if(white_1) myrow = "1";
+			if(black_1) myrow = "8";
 			if(fromsqr.id[1]==tosqr.id[1] && tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0)==2){
-				let middlsqr=document.getElementById("f1");
-				if(middlsqr.innerHTML=="" && tosqr.innerHTML=="" && attackedB.indexOf(middlsqr)==-1 && attackedB.indexOf(tosqr)==-1 && attackedB.indexOf(fromsqr)==-1){
-					if(castleble[1]==true && castleble[4]==true){
-						let rook=document.getElementById("Wrook2");
-						emptDiv.append(document.getElementById(Wrook2.id));
+				let middlsqr=document.getElementById("f"+myrow);
+				if(white_1) condition = (middlsqr.innerHTML=="" && tosqr.innerHTML=="" && attackedB.indexOf(middlsqr)==-1 && attackedB.indexOf(tosqr)==-1 && attackedB.indexOf(fromsqr)==-1)
+				if(black_1) condition = (middlsqr.innerHTML=="" && tosqr.innerHTML=="" && attackedW.indexOf(middlsqr)==-1 && attackedW.indexOf(tosqr)==-1 && attackedW.indexOf(fromsqr)==-1)
+				if(condition){
+					if(castleble[1+2*black_1]==true && castleble[4+black_1]==true){
+						let rook=document.getElementById(player_now+"rook2");
+						if(white_1) emptDiv.append(document.getElementById(Wrook2.id));
+						if(black_1) emptDiv.append(document.getElementById(Brook2.id));
 						rook.style.left=middlsqr.getBoundingClientRect().left+"px";
 						rook.style.top=(middlsqr.getBoundingClientRect().top+scrollY)+"px";
-						middlsqr.innerHTML="Wrook2";
-						document.getElementById("h1").innerHTML="";
+						middlsqr.innerHTML=player_now+"rook2";
+						document.getElementById("h"+myrow).innerHTML="";
 						return true;
 					}
 				}
 			}
 			if(fromsqr.id[1]==tosqr.id[1] && fromsqr.id.charCodeAt(0)-tosqr.id.charCodeAt(0)==2){
-				let middlsqr=document.getElementById("d1");
-				let lftsqr=document.getElementById("b1");
-				if(middlsqr.innerHTML=="" && tosqr.innerHTML=="" && lftsqr.innerHTML=="" && attackedB.indexOf(middlsqr)==-1 && attackedB.indexOf(tosqr)==-1 && attackedB.indexOf(lftsqr)==-1 && attackedB.indexOf(fromsqr)==-1){
-					if(castleble[0]==true && castleble[4]==true){
-						let rook=document.getElementById("Wrook1");
-						emptDiv.append(document.getElementById(Wrook1.id));
+				let middlsqr=document.getElementById("d"+myrow);
+				let lftsqr=document.getElementById("b"+myrow);
+				if(white_1) condition = (middlsqr.innerHTML=="" && tosqr.innerHTML=="" && lftsqr.innerHTML=="" && attackedB.indexOf(middlsqr)==-1 && attackedB.indexOf(tosqr)==-1 && attackedB.indexOf(lftsqr)==-1 && attackedB.indexOf(fromsqr)==-1);
+				if(black_1) condition = (middlsqr.innerHTML=="" && tosqr.innerHTML=="" && lftsqr.innerHTML=="" && attackedW.indexOf(middlsqr)==-1 && attackedW.indexOf(tosqr)==-1 && attackedW.indexOf(lftsqr)==-1 && attackedW.indexOf(fromsqr)==-1)
+				if(condition){
+					if(castleble[2*black_1]==true && castleble[4+black_1]==true){
+						let rook=document.getElementById(player_now+"rook1");
+						if(white_1) emptDiv.append(document.getElementById(Wrook1.id));
+						if(black_1) emptDiv.append(document.getElementById(Brook1.id));
 						rook.style.left=middlsqr.getBoundingClientRect().left+"px";
 						rook.style.top=(middlsqr.getBoundingClientRect().top+scrollY)+"px";
-						middlsqr.innerHTML="Wrook1";
-						document.getElementById("a1").innerHTML="";
+						middlsqr.innerHTML=player_now+"rook1";
+						document.getElementById("a"+myrow).innerHTML="";
 						return true;
 					}
 				}
 			}
-			if((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!="W" && attackedB.indexOf(tosqr)==-1){
-					if(tosqr.innerHTML[0]=="B"){
+			if(white_1) condition = ((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!=player_now && attackedB.indexOf(tosqr)==-1)
+			if(black_1) condition = ((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!=player_now && attackedW.indexOf(tosqr)==-1)
+			if(condition){
+					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[4]=false;
+						castleble[4+black_1]=false;
 						return true;
 					}else{
-						castleble[4]=false;
+						castleble[4+black_1]=false;
 						return true;
 					}
-			}
-		}
-		attkUptd();
-	}else if(dragValue.id[0]=="B" && move%2==0){
-		console.log(tosqr);
-		tempMoveFrom=fromsqr;
-		tempMoveTo=tosqr;
-		attkUptd();
-		for(let i=0;i<64;i++){
-			let pcstr="";
-			let whole_name=squares[i].innerHTML;
-			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
-				pcstr=pcstr+whole_name[k]; 
-			}
-			if(((pcstr=="Bking" && tempMoveFrom!=squares[i]) || (dragValue=="Bking" && tempMoveTo==squares[i])) && attackedW.indexOf(squares[i])!=-1){
-				return false;
-			}
-		}
-		tempMoveFrom=null;
-		tempMoveTo=null;
-		if(dragValue.id[1]=="p"){
-			if(promotion[(parseInt(dragValue.id[5])+7)]!=""){
-				if(promotion[(parseInt(dragValue.id[5])+7)]=="Bqueen"){
-					if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-						if(fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-						if(fromsqr.id[0]<tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}else if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
-						if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-								let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}
-				}
-				if(promotion[(parseInt(dragValue.id[5])+7)]=="Brook"){
-					if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-						if(fromsqr.id[1]<tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[1]>tosqr.id[1]){
-							for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-								let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-						if(fromsqr.id[0]<tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						if(fromsqr.id[0]>tosqr.id[0]){
-							for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-								let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-								if(sq.innerHTML!=""){
-									return false;
-								}
-							}
-							if(tosqr.innerHTML[0]=="W"){
-								if(canTake){
-									take(tosqr);
-								}
-								return true;
-							}else if(tosqr.innerHTML==""){
-								return true;
-							}
-							return false;
-						}
-						console.log("broken");
-						return false;
-					}
-					return false;
-				}
-				if(promotion[(parseInt(dragValue.id[5])+7)]=="Bbishop"){
-					if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="W"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="W"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="W"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-						for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-							let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-							if(sq.innerHTML!=""){
-								return false;
-							}
-						}
-						if(tosqr.innerHTML[0]=="W"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else if(tosqr.innerHTML==""){
-							return true;
-						}
-						return false;
-					}
-					console.log("broken");
-					return false;
-				}
-				if(promotion[(parseInt(dragValue.id[5])+7)]=="Bknight"){
-					if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="B"){
-						if(tosqr.innerHTML[0]=="W"){
-							if(canTake){
-								take(tosqr);
-							}
-							return true;
-						}else{
-							return true;
-						}
-					}
-				}
-			}
-			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"-1 && tosqr.innerHTML==""){
-				hasMoved[(parseInt(dragValue.id[5])+7)]=true;
-				return true;
-			}
-			if(!hasMoved[(parseInt(dragValue.id[5])+7)] && tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"-2 && tosqr.innerHTML==""){
-				let sq=document.getElementById(tosqr.id[0]+(tosqr.id[1]-(-1)));
-				if(sq.innerHTML==""){
-					hasMoved[(parseInt(dragValue.id[5])+7)]=true;
-					enPass[(parseInt(dragValue.id[5])+7)]=move;
-					return true;
-				}
-			}
-			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0"-1 && tosqr.innerHTML[0]=="W"){
-				//console.log("ya");
-				if(canTake){
-					take(tosqr);
-				}
-				hasMoved[(parseInt(dragValue.id[5])+7)]=true;
-				return true;
-			}
-			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0"-1){
-				//console.log("ya2");
-				let sq=document.getElementById(tosqr.id[0]+fromsqr.id[1]);
-				let pic=document.getElementById(sq.innerHTML);
-				if(sq.innerHTML[0]=="W" && sq.innerHTML[1]=="p" && enPass[(parseInt(pic.id[5])-1)]==move-1){
-					if(canTake){
-						take(sq);
-					}
-					hasMoved[(parseInt(dragValue.id[5])+7)]=true;
-					return true;
-				}
-			}
-			return false;
-		}
-		if(dragValue.id[1]=="r"){
-			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-				if(fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-						let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-						let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-				if(fromsqr.id[0]<tosqr.id[0]){
-					for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0]){
-					for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])+1]=false;
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}
-			return false;
-		}
-		if(dragValue.id[1]=="b"){
-			if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
-				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}
-		}
-		if(dragValue.id[1]=="q"){
-			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-				if(fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-						let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-						let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-				if(fromsqr.id[0]<tosqr.id[0]){
-					for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0]){
-					for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}else if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
-				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}
-		}
-		if(dragValue.id[1]=="k" && dragValue.id[2]=="n"){
-			if(((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==2 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==1) || (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))==2)) && tosqr.innerHTML[0]!="B"){
-				if(tosqr.innerHTML[0]=="W"){
-					if(canTake){
-						take(tosqr);
-					}
-					return true;
-				}else{
-					return true;
-				}
-			}
-		}
-		if(dragValue.id[1]=="k" && dragValue.id[2]=="i"){
-			if(fromsqr.id[1]==tosqr.id[1] && tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0)==2){
-				let middlsqr=document.getElementById("f8");
-				
-				if(middlsqr.innerHTML=="" && tosqr.innerHTML=="" && attackedW.indexOf(middlsqr)==-1 && attackedW.indexOf(tosqr)==-1 && attackedW.indexOf(fromsqr)==-1){
-					if(castleble[3]==true && castleble[5]==true){
-						let rook=document.getElementById("Brook2");
-						emptDiv.append(document.getElementById(Brook2.id));
-						rook.style.left=middlsqr.getBoundingClientRect().left+"px";
-						rook.style.top=(middlsqr.getBoundingClientRect().top+scrollY)+"px";
-						middlsqr.innerHTML="Brook2";
-						document.getElementById("h8").innerHTML="";
-						return true;
-					}
-				}
-			}
-			if(fromsqr.id[1]==tosqr.id[1] && fromsqr.id.charCodeAt(0)-tosqr.id.charCodeAt(0)==2){
-				let middlsqr=document.getElementById("d8");
-				let lftsqr=document.getElementById("b8");
-				if(middlsqr.innerHTML=="" && tosqr.innerHTML=="" && lftsqr.innerHTML=="" && attackedW.indexOf(middlsqr)==-1 && attackedW.indexOf(tosqr)==-1 && attackedW.indexOf(lftsqr)==-1 && attackedW.indexOf(fromsqr)==-1){
-					if(castleble[2]==true && castleble[5]==true){
-						let rook=document.getElementById("Brook1");
-						emptDiv.append(document.getElementById(Brook1.id));
-						rook.style.left=middlsqr.getBoundingClientRect().left+"px";
-						rook.style.top=(middlsqr.getBoundingClientRect().top+scrollY)+"px";
-						middlsqr.innerHTML="Brook1";
-						document.getElementById("a8").innerHTML="";
-						return true;
-					}
-				}
-			}
-			if((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!="B" && attackedW.indexOf(tosqr)==-1){
-				//if(isCheck()){
-					if(tosqr.innerHTML[0]=="W"){
-						if(canTake){
-							take(tosqr);
-						}
-						castleble[5]=false;
-						return true;
-					}else{
-						castleble[5]=false;
-						return true;
-					}
-				//}
 			}
 		}
 		attkUptd();
@@ -1613,323 +754,12 @@ function attkUptd(){
 				continue;
 			}
 			let pcchk=document.getElementById(pcstr);
-			if(pcchk.id[1]=="p" && tempMoveTo!=squares[i]){
-				if((promotion[(parseInt(pcchk.id[5])-1)]!="" && pcchk.id[0]=="W") || (promotion[(parseInt(pcchk.id[5])+7)]!="" && pcchk.id[0]=="B")){
-					if(promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen" || promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
-						for(let j=1;j<8;j++){
-							let a="a",ch1="1",h="h",ch8="8";
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
-							//	console.log("1",tempMoveFrom,tempMoveTo);
-								rght=false;
-							}
-							if(rght){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									//console.log("2",attksqr,tempMoveFrom,tempMoveTo);
-									rght=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || tempMoveTo==squares[i]){
-								lft=false;
-							}
-							if(lft){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									lft=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-								up=false;
-							}
-							if(up){
-								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									up=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-								dwn=false;
-							}
-							if(dwn){
-								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									dwn=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-								uprght=false;
-							}
-							if(uprght){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									uprght=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-								uplft=false;
-							}
-							if(uplft){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									uplft=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-								dwnrght=false;
-							}
-							if(dwnrght){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									dwnrght=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-								dwnlft=false;
-							}
-							if(dwnlft){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wqueen"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bqueen"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									dwnlft=false;										
-								}
-							}
-						}
-					}else if(promotion[(parseInt(pcchk.id[5])-1)]=="Wrook" || promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
-						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
-						for(let j=1;j<8;j++){
-							let a="a",ch1="1",h="h",ch8="8";
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
-								rght=false;
-							}
-							if(rght){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									rght=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || tempMoveTo==squares[i]){
-								lft=false;
-							}
-							if(lft){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									lft=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-								up=false;
-							}
-							if(up){
-								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									up=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-								dwn=false;
-							}
-							if(dwn){
-								let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wrook"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Brook"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									dwn=false;										
-								}
-							}
-						}
-					}else if(promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop" || promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
-						let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
-						for(let j=1;j<8;j++){
-							let a="a",ch1="1",h="h",ch8="8";
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-								uprght=false;
-							}
-							if(uprght){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									uprght=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-								uplft=false;
-							}
-							if(uplft){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									uplft=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-								dwnrght=false;
-							}
-							if(dwnrght){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									dwnrght=false;										
-								}
-							}
-							if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-								dwnlft=false;
-							}
-							if(dwnlft){
-								let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-								if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wbishop"){
-									attackedW.push(attksqr);
-								}
-								if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])+7)]=="Bbishop"){
-									attackedB.push(attksqr);
-								}
-								if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-									dwnlft=false;										
-								}
-							}
-						}
-					}else if(promotion[(parseInt(pcchk.id[5])-1)]=="Wknight" || promotion[(parseInt(pcchk.id[5])+7)]=="Bknight" && tempMoveTo!=squares[i]){
-						let a="a",ch1="1",h="h",ch8="8";
-						if(pcchk.id[0]=="W" && promotion[(parseInt(pcchk.id[5])-1)]=="Wknight"){
-							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-							}
-							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-							}
-							if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-							}
-							if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-							}
-							if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-							}
-							if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-							}
-							if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-							}
-							if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-								attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-							}
-						}	
-						if(pcchk.id[0]=="B" && promotion[(parseInt(pcchk.id[5])-1)]=="Bknight"){
-							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-							}
-							if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-							}
-							if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-							}
-							if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-							}
-							if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-							}
-							if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-							}
-							if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-							}
-							if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-								attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-							}
-						}
-					}
-				}else{
+			if(pcstr[1]=="p" && tempMoveTo!=squares[i]){
+				if     (promotion[(parseInt(pcstr[5])-1)]!="" && pcstr[0]=="W") pcstr = promotion[(parseInt(pcstr[5])-1)];
+				else if(promotion[(parseInt(pcstr[5])+7)]!="" && pcstr[0]=="B") pcstr = promotion[(parseInt(pcstr[5])+7)];
+				else{
 					let a="a",ch1="1",h="h",ch8="8";
-					if(pcchk.id[0]=="W"){
+					if(pcstr[0]=="W"){
 						if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 							attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 						}
@@ -1937,7 +767,7 @@ function attkUptd(){
 							attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 						}
 					}
-					if(pcchk.id[0]=="B"){
+					if(pcstr[0]=="B"){
 						if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
 							attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
 						}
@@ -1947,7 +777,7 @@ function attkUptd(){
 					}
 				}
 			}
-			if(pcchk.id[1]=="q" && tempMoveTo!=squares[i]){
+			if(pcstr[1]=="q" && tempMoveTo!=squares[i]){
 				let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 				for(let j=1;j<8;j++){
 					let a="a",ch1="1",h="h",ch8="8";
@@ -1957,10 +787,10 @@ function attkUptd(){
 					}
 					if(rght){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1973,10 +803,10 @@ function attkUptd(){
 					}
 					if(lft){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -1988,10 +818,10 @@ function attkUptd(){
 					}
 					if(up){
 						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2003,10 +833,10 @@ function attkUptd(){
 					}
 					if(dwn){
 						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2018,10 +848,10 @@ function attkUptd(){
 					}
 					if(uprght){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2033,10 +863,10 @@ function attkUptd(){
 					}
 					if(uplft){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2048,10 +878,10 @@ function attkUptd(){
 					}
 					if(dwnrght){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2063,10 +893,10 @@ function attkUptd(){
 					}
 					if(dwnlft){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2075,7 +905,7 @@ function attkUptd(){
 					}
 				}
 			}
-			if(pcchk.id[1]=="r" && tempMoveTo!=squares[i]){
+			if(pcstr[1]=="r" && tempMoveTo!=squares[i]){
 				let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 				for(let j=1;j<8;j++){
 					let a="a",ch1="1",h="h",ch8="8";
@@ -2084,10 +914,10 @@ function attkUptd(){
 					}
 					if(rght){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2099,10 +929,10 @@ function attkUptd(){
 					}
 					if(lft){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2114,10 +944,10 @@ function attkUptd(){
 					}
 					if(up){
 						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2129,10 +959,10 @@ function attkUptd(){
 					}
 					if(dwn){
 						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2141,7 +971,7 @@ function attkUptd(){
 					}
 				}
 			}
-			if(pcchk.id[1]=="b" && tempMoveTo!=squares[i]){
+			if(pcstr[1]=="b" && tempMoveTo!=squares[i]){
 				let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 				for(let j=1;j<8;j++){
 					let a="a",ch1="1",h="h",ch8="8";
@@ -2150,10 +980,10 @@ function attkUptd(){
 					}
 					if(uprght){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2165,10 +995,10 @@ function attkUptd(){
 					}
 					if(uplft){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2180,10 +1010,10 @@ function attkUptd(){
 					}
 					if(dwnrght){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2195,10 +1025,10 @@ function attkUptd(){
 					}
 					if(dwnlft){
 						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcchk.id[0]=="W"){
+						if(pcstr[0]=="W"){
 							attackedW.push(attksqr);
 						}
-						if(pcchk.id[0]=="B"){
+						if(pcstr[0]=="B"){
 							attackedB.push(attksqr);
 						}
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
@@ -2207,9 +1037,9 @@ function attkUptd(){
 					}
 				}
 			}
-			if(pcchk.id[1]=="k" && pcchk.id[2]=="n" && tempMoveTo!=squares[i]){
+			if(pcstr[1]=="k" && pcstr[2]=="n" && tempMoveTo!=squares[i]){
 				let a="a",ch1="1",h="h",ch8="8";
-				if(pcchk.id[0]=="W"){
+				if(pcstr[0]=="W"){
 					if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 					}
@@ -2235,7 +1065,7 @@ function attkUptd(){
 						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
 					}
 				}	
-				if(pcchk.id[0]=="B"){
+				if(pcstr[0]=="B"){
 					if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 					}
@@ -2262,9 +1092,9 @@ function attkUptd(){
 					}
 				}
 			}
-			if(pcchk.id[1]=="k" && pcchk.id[2]=="i"){
+			if(pcstr[1]=="k" && pcstr[2]=="i"){
 				let a="a",ch1="1",h="h",ch8="8";
-				if(pcchk.id[0]=="W"){
+				if(pcstr[0]=="W"){
 					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 					}
@@ -2290,7 +1120,7 @@ function attkUptd(){
 						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1))));
 					}
 				}	
-				if(pcchk.id[0]=="B"){
+				if(pcstr[0]=="B"){
 					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
 						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
 					}
@@ -2321,119 +1151,31 @@ function attkUptd(){
 	}
 }
 
-let promBqueen=document.getElementById("PromToBqueen");
-promBqueen.onclick=function(){
-	promotion[(parseInt(lstDrag.id[5])+7)]="Bqueen";
+document.getElementById("PromToBqueen" ).addEventListener('click', function(){ prom("B","queen", 1,"d","q");});
+document.getElementById("PromToBrook"  ).addEventListener('click', function(){ prom("B","rook",  1,"d","r");});
+document.getElementById("PromToBbishop").addEventListener('click', function(){ prom("B","bishop",1,"d","b");});
+document.getElementById("PromToWknight").addEventListener('click', function(){ prom("B","knight",1,"d","n");});
+document.getElementById("PromToWqueen" ).addEventListener('click', function(){ prom("W","queen", 0,"l","q");});
+document.getElementById("PromToWrook"  ).addEventListener('click', function(){ prom("W","rook",  0,"l","r");});
+document.getElementById("PromToWbishop").addEventListener('click', function(){ prom("W","bishop",0,"l","b");});
+document.getElementById("PromToWknight").addEventListener('click', function(){ prom("W","knight",0,"l","n");});
+document.getElementById("PromToBqueen" ).addEventListener('touchstart', function(){ prom("B","queen", 1,"d","q");});
+document.getElementById("PromToBrook"  ).addEventListener('touchstart', function(){ prom("B","rook",  1,"d","r");});
+document.getElementById("PromToBbishop").addEventListener('touchstart', function(){ prom("B","bishop",1,"d","b");});
+document.getElementById("PromToWknight").addEventListener('touchstart', function(){ prom("B","knight",1,"d","n");});
+document.getElementById("PromToWqueen" ).addEventListener('touchstart', function(){ prom("W","queen", 0,"l","q");});
+document.getElementById("PromToWrook"  ).addEventListener('touchstart', function(){ prom("W","rook",  0,"l","r");});
+document.getElementById("PromToWbishop").addEventListener('touchstart', function(){ prom("W","bishop",0,"l","b");});
+document.getElementById("PromToWknight").addEventListener('touchstart', function(){ prom("W","knight",0,"l","n");});
+
+function prom(prom_player, prom_piece, prom_player_number, prom_player_letter, prom_piece_letter){
+	promotion[(parseInt(lstDrag.id[5])-1+8*prom_player_number)]=prom_player+prom_piece;
 	let prmPc=document.getElementById(lstDrag.id);
-	prmPc.src="Chess_qdt60.png";
-	document.getElementById('BPromotion').style.pointerEvents = "none";
-	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
+	prmPc.src="Chess_"+prom_piece_letter+prom_player_letter+"t60.png";
+	document.getElementById(prom_player+'Promotion').style.pointerEvents = "none";
+	document.getElementById(prom_player+'Promotion').style.animation = "revAnim 0.3s linear";
 	setTimeout(() => {
-		document.getElementById('BPromotion').style.opacity="0%";
-	}, 280);
-}
-let promBrook=document.getElementById("PromToBrook");
-promBrook.onclick=function(){
-	if(lstDrag.id[0]=="W"){
-		promotion[(parseInt(lstDrag.id[5])-1)]="Wrook";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_rlt60.png";
-	}
-	if(lstDrag.id[0]=="B"){
-		promotion[(parseInt(lstDrag.id[5])+7)]="Brook";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_rdt60.png";
-	}
-	document.getElementById('BPromotion').style.pointerEvents = "none";
-	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('BPromotion').style.opacity="0%";
-	}, 280);
-}
-let promBbishop=document.getElementById("PromToBbishop");
-promBbishop.onclick=function(){
-	if(lstDrag.id[0]=="W"){
-		promotion[(parseInt(lstDrag.id[5])-1)]="Wbishop";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_blt60.png";
-	}
-	if(lstDrag.id[0]=="B"){
-		promotion[(parseInt(lstDrag.id[5])+7)]="Bbishop";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_bdt60.png";
-	}
-	document.getElementById('BPromotion').style.pointerEvents = "none";
-	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('BPromotion').style.opacity="0%";
-	}, 280);
-}
-let promBknight=document.getElementById("PromToBknight");
-promBknight.onclick=function(){
-	if(lstDrag.id[0]=="W"){
-		promotion[(parseInt(lstDrag.id[5])-1)]="Wknight";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_nlt60.png";
-	}
-	if(lstDrag.id[0]=="B"){
-		promotion[(parseInt(lstDrag.id[5])+7)]="Bknight";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_ndt60.png";
-	}
-	document.getElementById('BPromotion').style.pointerEvents = "none";
-	document.getElementById('BPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('BPromotion').style.opacity="0%";
-	}, 280);
-}
-let promWqueen=document.getElementById("PromToWqueen");
-promWqueen.onclick=function(){
-	promotion[(parseInt(lstDrag.id[5])-1)]="Wqueen";
-	let prmPc=document.getElementById(lstDrag.id);
-	prmPc.src="Chess_qlt60.png";
-	document.getElementById('WPromotion').style.pointerEvents = "none";
-	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('WPromotion').style.opacity="0%";
-	}, 280);
-}
-let promWrook=document.getElementById("PromToWrook");
-promWrook.onclick=function(){
-	if(lstDrag.id[0]=="W"){
-		promotion[(parseInt(lstDrag.id[5])-1)]="Wrook";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_rlt60.png";
-	}
-	document.getElementById('WPromotion').style.pointerEvents = "none";
-	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('WPromotion').style.opacity="0%";
-	}, 280);
-}
-let promWbishop=document.getElementById("PromToWbishop");
-promWbishop.onclick=function(){
-	if(lstDrag.id[0]=="W"){
-		promotion[(parseInt(lstDrag.id[5])-1)]="Wbishop";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_blt60.png";
-	}
-	document.getElementById('WPromotion').style.pointerEvents = "none";
-	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('WPromotion').style.opacity="0%";
-	}, 280);
-}
-let promWknight=document.getElementById("PromToWknight");
-promWknight.onclick=function(){
-	if(lstDrag.id[0]=="W"){
-		promotion[(parseInt(lstDrag.id[5])-1)]="Wknight";
-		let prmPc=document.getElementById(lstDrag.id);
-		prmPc.src="Chess_nlt60.png";
-	}
-	document.getElementById('WPromotion').style.pointerEvents = "none";
-	document.getElementById('WPromotion').style.animation = "revAnim 0.3s linear";
-	setTimeout(() => {
-		document.getElementById('WPromotion').style.opacity="0%";
+		document.getElementById(prom_player+'Promotion').style.opacity="0%";
 	}, 280);
 }
 
@@ -2489,7 +1231,20 @@ function place(x_final, y_final) {
 					fromsqr.innerHTML="";
 					move++;
 					if(WinPzl){
-						//win
+						let h=squares[i].getBoundingClientRect().height;
+						let lf=squares[i].getBoundingClientRect().left;
+						let tp=squares[i].getBoundingClientRect().top;
+						let checkmark=document.getElementById("checkmark");
+						checkmark.style.display="block";
+						let hm=checkmark.getBoundingClientRect().height;
+						console.log(hm);
+						checkmark.style.left=(lf+h-(hm/2)-1.5)+"px";
+						checkmark.style.top=(tp-(hm/2)-1.5+scrollY)+"px";
+						//checkmark.style.top=(tp-(hm/2)-1.5
+						squares[i].style.height=(h-20)+"px";
+						squares[i].style.width=(h-20)+"px";
+						squares[i].style.border="10px solid #23c24e";
+						//emptDiv.innerHTML="YOU WON pzzl!!!!!!"+emptDiv.innerHTML; //(in puzzles 11+)
 					}
 					if(isPuzzle && !WinPzl){
 						let automovedfrmsqr=document.getElementById(corrm.frm[move-1]);
@@ -2509,6 +1264,9 @@ function place(x_final, y_final) {
 						canGo(automovedtosqr,true);
 						dragValue=temp;
 						fromsqr=temp2;
+						if(automovedtosqr.innerHTML!=""){
+							take(automovedtosqr);
+						}
 						pieceautomoved.style.left=automovedfrmsqr.getBoundingClientRect().left+"px";
 						pieceautomoved.style.top=(automovedfrmsqr.getBoundingClientRect().top+scrollY)+"px";
 						gsap.to("#"+pieceautomoved.id,{x: xm, y: ym, duration: 0.5});
@@ -2546,13 +1304,17 @@ function place(x_final, y_final) {
 			}
 			//let RestartBut=document.getElementById("resBut");
 			//RestartBut.style.display="flex";
+			language = document.currentScript.getAttribute('lang')
 			if(stalemate){
-				winDiv.innerHTML="Stalemate";
+				if(language = 'bg')	winDiv.innerHTML="Пат";
+				if(language = 'en') winDiv.innerHTML="Stalemate";
 			}else{
 				if(Wcheck){
-					winDiv.innerHTML="White Wins!";
+					if(language = 'bg') winDiv.innerHTML="Белите Печелят!";
+					if(language = 'en') winDiv.innerHTML="White Wins!";
 				}else{
-					winDiv.innerHTML="Black Wins!";
+					if(language = 'bg') winDiv.innerHTML="Черните Печелят!";
+					if(language = 'en') winDiv.innerHTML="Black Wins!";
 				}
 			}
 		}
