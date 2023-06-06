@@ -2,6 +2,7 @@ let dragValue;
 let stalemate=false;
 let isDrag=false;
 let isPuzzle=parseInt(document.currentScript.getAttribute('isPuzzle'));//пъзел ли е
+let language = document.currentScript.getAttribute('lang')
 let fromsqr;
 let emptDiv=document.getElementById("emptyDiv");
 let squares=document.querySelectorAll(".square");//+document.querySelectorAll(".Bsquare");
@@ -243,9 +244,9 @@ function canGo(tosqr,canTake){
 			return false;
 		}
 	}
-	white_1 = move%2;
-	black_1 = 1 - white_1;
-	player_now = dragValue.id[0];
+	white_1 = move%2;      //1 ако белите са на ход, 0 - черните
+	black_1 = 1 - white_1; //1 ако черните са на ход, 0 - белите
+	player_now = dragValue.id[0]; //"W", ако е преместена бяла фигура, "B" - черна
 	if(white_1) player_other = "B";
 	if(black_1) player_other = "W";
 	if((player_now=="W" && white_1) || (player_now=="B" && black_1)){
@@ -258,9 +259,10 @@ function canGo(tosqr,canTake){
 			for(let k=0;(whole_name[k]>="a" && whole_name[k]<="z") || (whole_name[k]>="A" && whole_name[k]<="Z") || (whole_name[k]>="0" && whole_name[k]<="9");k++){
 				pcstr=pcstr+whole_name[k]; 
 			}
-			if((white_1 && attackedB.indexOf(squares[i])!=-1)||(black_1 && attackedW.indexOf(squares[i])!=-1))
-			if(((pcstr==player_now+"king" && tempMoveFrom!=squares[i]) || (dragValue==player_now+"king" && tempMoveTo==squares[i]))){
-				return false;
+			if((white_1 && attackedB.indexOf(squares[i])!=-1)||(black_1 && attackedW.indexOf(squares[i])!=-1)){
+				if(((pcstr==player_now+"king" && tempMoveFrom!=squares[i]) || (dragValue==player_now+"king" && tempMoveTo==squares[i]))){
+					return false;
+				}
 			}
 		}
 		tempMoveFrom=null;
@@ -268,23 +270,20 @@ function canGo(tosqr,canTake){
 		piece_now = dragValue.id[1];
 		if(piece_now=="k") piece_now += dragValue.id[2]; // Differentiate between "ki" and "kn"
 		if(piece_now=="p")/*Check for promotions*/{
-			if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]!=""){
-				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"queen" ) piece_now = "q";
-				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"rook"  ) piece_now = "r";
-				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"bishop") piece_now = "b";
-				if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]==player_now+"knight") piece_now = "kn";
-			}
+			if(promotion[(parseInt(dragValue.id[5])-1+8*black_1)]!="") piece_now = (promotion[(parseInt(dragValue.id[5])-1+8*black_1)])[1];
+			if(piece_now=="k") piece_now = "kn";
 		}
 		if(piece_now=="p")/*Pawn move*/{
+			let pawn_number = parseInt(dragValue.id[5]);
 			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+white_1-black_1 && tosqr.innerHTML==""){
-				hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
+				hasMoved[(pawn_number-1+8*black_1)]=true;
 				return true;
 			}
-			if(!hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)] && tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+2*white_1-2*black_1 && tosqr.innerHTML==""){
+			if(!hasMoved[(pawn_number-1+8*black_1)] && tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]-"0"==fromsqr.id[1]-"0"+2*white_1-2*black_1 && tosqr.innerHTML==""){
 				let sq=document.getElementById(tosqr.id[0]+(tosqr.id[1]-white_1+black_1));
 				if(sq.innerHTML==""){
-					hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
-					enPass[(parseInt(dragValue.id[5])-1+8*black_1)]=move;
+					hasMoved[(pawn_number-1+8*black_1)]=true;
+					enPass[(pawn_number-1+8*black_1)]=move;
 					return true;
 				}
 			}
@@ -293,7 +292,7 @@ function canGo(tosqr,canTake){
 				if(canTake){
 					take(tosqr);
 				}
-				hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
+				hasMoved[(pawn_number-1+8*black_1)]=true;
 				return true;
 			}
 			if((tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)+1 || tosqr.id.charCodeAt(0)==fromsqr.id.charCodeAt(0)-1) && tosqr.id[1]-"0"==fromsqr.id[1]-"0" + white_1 - black_1){
@@ -304,13 +303,16 @@ function canGo(tosqr,canTake){
 					if(canTake){
 						take(sq);
 					}
-					hasMoved[(parseInt(dragValue.id[5])-1+8*black_1)]=true;
+					hasMoved[(pawn_number-1+8*black_1)]=true;
 					return true;
 				}
 			}
 			return false;
 		}
-		if(piece_now=="r")/*Rook move*/{
+		if(piece_now=="r" || piece_now=="q")/*Horizontal/vertical move*/{
+			let rook_number;
+			if(piece_now=="r") rook_number = parseInt(dragValue.id[5]);
+			else rook_number = 0;
 			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
 				if(fromsqr.id[1]<tosqr.id[1]){
 					for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
@@ -323,10 +325,10 @@ function canGo(tosqr,canTake){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -342,17 +344,18 @@ function canGo(tosqr,canTake){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}
 					return false;
 				}
 				console.log("broken");
 				return false;
-			}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
+			}
+			else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
 				if(fromsqr.id[0]<tosqr.id[0]){
 					for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
 						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
@@ -364,10 +367,10 @@ function canGo(tosqr,canTake){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -383,10 +386,10 @@ function canGo(tosqr,canTake){
 						if(canTake){
 							take(tosqr);
 						}
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}else if(tosqr.innerHTML==""){
-						castleble[parseInt(dragValue.id[5])-1+2*black_1]=false;
+						if(rook_number) castleble[rook_number-1+2*black_1]=false;
 						return true;
 					}
 					return false;
@@ -394,158 +397,9 @@ function canGo(tosqr,canTake){
 				console.log("broken");
 				return false;
 			}
-			return false;
 		}
-		if(piece_now=="b")/*Bishop move*/{
+		if(piece_now=="b" || piece_now=="q")/*Diagonal move*/{
 			if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
-				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(0);i=i-1,j=j-1){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)-1;i<tosqr.id.charCodeAt(0);i++,j=j-1){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(0)-1,j=fromsqr.id.charCodeAt(1)+1;i>tosqr.id.charCodeAt(0);i=i-1,j++){
-						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}
-		}
-		if(piece_now=="q")/*Queen move*/{
-			if(tosqr.id[0]==fromsqr.id[0] && tosqr.id[1]!=fromsqr.id[1]){
-				if(fromsqr.id[1]<tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(1);i++){
-						let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[1]>tosqr.id[1]){
-					for(let i=fromsqr.id.charCodeAt(1)-1;i>tosqr.id.charCodeAt(1);i=i-1){
-						let sq=document.getElementById(fromsqr.id[0]+String.fromCharCode(i));
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}else if(tosqr.id[0]!=fromsqr.id[0] && tosqr.id[1]==fromsqr.id[1]){
-				if(fromsqr.id[0]<tosqr.id[0]){
-					for(let i=fromsqr.id.charCodeAt(0)+1;i<tosqr.id.charCodeAt(0);i++){
-						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				if(fromsqr.id[0]>tosqr.id[0]){
-					for(let i=fromsqr.id.charCodeAt(0)-1;i>tosqr.id.charCodeAt(0);i=i-1){
-						let sq=document.getElementById(String.fromCharCode(i)+fromsqr.id[1]);
-						if(sq.innerHTML!=""){
-							return false;
-						}
-					}
-					if(tosqr.innerHTML[0]==player_other){
-						if(canTake){
-							take(tosqr);
-						}
-						return true;
-					}else if(tosqr.innerHTML==""){
-						return true;
-					}
-					return false;
-				}
-				console.log("broken");
-				return false;
-			}else if(Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))==Math.abs(tosqr.id[1]-fromsqr.id[1]) && fromsqr!=tosqr){
 				if(fromsqr.id[0]<tosqr.id[0] && fromsqr.id[1]<tosqr.id[1]){
 					for(let i=fromsqr.id.charCodeAt(0)+1,j=fromsqr.id.charCodeAt(1)+1;i<tosqr.id.charCodeAt(0);i++,j++){
 						let sq=document.getElementById(String.fromCharCode(i)+String.fromCharCode(j));
@@ -668,9 +522,9 @@ function canGo(tosqr,canTake){
 					}
 				}
 			}
-			if(white_1) condition = ((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!=player_now && attackedB.indexOf(tosqr)==-1)
-			if(black_1) condition = ((Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!=player_now && attackedW.indexOf(tosqr)==-1)
-			if(condition){
+			if(white_1) condition = (attackedB.indexOf(tosqr)==-1);
+			if(black_1) condition = (attackedW.indexOf(tosqr)==-1);
+			if(condition && (Math.abs(tosqr.id.charCodeAt(0)-fromsqr.id.charCodeAt(0))<=1 && Math.abs(tosqr.id.charCodeAt(1)-fromsqr.id.charCodeAt(1))<=1) && fromsqr!=tosqr && tosqr.innerHTML[0]!=player_now){
 					if(tosqr.innerHTML[0]==player_other){
 						if(canTake){
 							take(tosqr);
@@ -753,402 +607,146 @@ function attkUptd(){
 			if(pcstr==""){
 				continue;
 			}
+			let piece_color = pcstr[0];
+			let c0 = squares[i].id.charCodeAt(0); // UTF-16 code of the row.
+			let c1 = squares[i].id.charCodeAt(1); // UTF-16 code of the column.
+			let a="a".charCodeAt(0); //Leftmost column. Used in the conditionals to specify the boundary.
+			let h="h".charCodeAt(0); //Rightmost column
+			let ch1="1".charCodeAt(0); //Bottom row
+			let ch8="8".charCodeAt(0); //Top row
 			let pcchk=document.getElementById(pcstr);
-			if(pcstr[1]=="p" && tempMoveTo!=squares[i]){
-				if     (promotion[(parseInt(pcstr[5])-1)]!="" && pcstr[0]=="W") pcstr = promotion[(parseInt(pcstr[5])-1)];
-				else if(promotion[(parseInt(pcstr[5])+7)]!="" && pcstr[0]=="B") pcstr = promotion[(parseInt(pcstr[5])+7)];
-				else{
-					let a="a",ch1="1",h="h",ch8="8";
-					if(pcstr[0]=="W"){
-						if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-							attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-						}
-						if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-							attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-						}
+			if(pcstr[1]=="p" && tempMoveTo!=squares[i])/*Pawn*/{
+				if     (promotion[(parseInt(pcstr[5])-1)]!="" && piece_color=="W") pcstr = promotion[(parseInt(pcstr[5])-1)];
+				else if(promotion[(parseInt(pcstr[5])+7)]!="" && piece_color=="B") pcstr = promotion[(parseInt(pcstr[5])+7)];
+				else{//Real pawn
+					if(piece_color=="W"){
+						if(c0+1<=h && c1+1<=ch8) add_attack('W',c0+1,c1+1);
+						if(c0-1>=a && c1+1<=ch8) add_attack('W',c0-1,c1+1);
 					}
-					if(pcstr[0]=="B"){
-						if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-							attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-						}
-						if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-							attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-						}
+					if(piece_color=="B"){
+						if(c0+1<=h && c1-1>=ch1) add_attack('B',c0+1,c1-1);
+						if(c0-1>=a && c1-1>=ch1) add_attack('B',c0-1,c1-1);
 					}
 				}
 			}
-			if(pcstr[1]=="q" && tempMoveTo!=squares[i]){
+			if((pcstr[1]=="r" || pcstr[1]=="q") && tempMoveTo!=squares[i])/*Diagonal*/{
 				let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 				for(let j=1;j<8;j++){
-					let a="a",ch1="1",h="h",ch8="8";
-					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
-					//	console.log("1",tempMoveFrom,tempMoveTo);
+					if(c0+j>h || tempMoveTo==squares[i]){
 						rght=false;
 					}
 					if(rght){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							//console.log("2",attksqr,tempMoveFrom,tempMoveTo);
-							rght=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || tempMoveTo==squares[i]){
-						lft=false;
-					}
-					if(lft){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							lft=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-						up=false;
-					}
-					if(up){
-						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							up=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-						dwn=false;
-					}
-					if(dwn){
-						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							dwn=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-						uprght=false;
-					}
-					if(uprght){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							uprght=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
-						uplft=false;
-					}
-					if(uplft){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							uplft=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-						dwnrght=false;
-					}
-					if(dwnrght){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							dwnrght=false;										
-						}
-					}
-					if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
-						dwnlft=false;
-					}
-					if(dwnlft){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
-						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
-							dwnlft=false;										
-						}
-					}
-				}
-			}
-			if(pcstr[1]=="r" && tempMoveTo!=squares[i]){
-				let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
-				for(let j=1;j<8;j++){
-					let a="a",ch1="1",h="h",ch8="8";
-					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || tempMoveTo==squares[i]){
-						rght=false;
-					}
-					if(rght){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+squares[i].id[1]);
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(String.fromCharCode(c0+j)+squares[i].id[1]);
+						add_attack(piece_color,c0+j,c1);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							rght=false;										
 						}
 					}
-					if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c0-j<a || tempMoveTo==squares[i]){
 						lft=false;
 					}
 					if(lft){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+squares[i].id[1]);
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(String.fromCharCode(c0-j)+squares[i].id[1]);
+						add_attack(piece_color,c0-j,c1);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							lft=false;										
 						}
 					}
-					if(squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c1+j>ch8 || tempMoveTo==squares[i]){
 						up=false;
 					}
 					if(up){
-						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(c1+j));
+						add_attack(piece_color,c0,c1+j);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							up=false;										
 						}
 					}
-					if(squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c1-j<ch1 || tempMoveTo==squares[i]){
 						dwn=false;
 					}
 					if(dwn){
-						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(squares[i].id[0]+String.fromCharCode(c1-j));
+						add_attack(piece_color,c0,c1-j);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							dwn=false;										
 						}
 					}
 				}
 			}
-			if(pcstr[1]=="b" && tempMoveTo!=squares[i]){
+			if((pcstr[1]=="b" || pcstr[1]=="q") && tempMoveTo!=squares[i])/*Horizontal / vertical*/{
 				let lft=true,rght=true,up=true,dwn=true,uprght=true,uplft=true,dwnrght=true,dwnlft=true;
 				for(let j=1;j<8;j++){
-					let a="a",ch1="1",h="h",ch8="8";
-					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c0+j>h || c1+j>ch8 || tempMoveTo==squares[i]){
 						uprght=false;
 					}
 					if(uprght){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(String.fromCharCode(c0+j)+String.fromCharCode(c1+j));
+						add_attack(piece_color,c0+j,c1+j);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							uprght=false;										
 						}
 					}
-					if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)+j>ch8.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c0-j<a || c1+j>ch8 || tempMoveTo==squares[i]){
 						uplft=false;
 					}
 					if(uplft){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)+j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(String.fromCharCode(c0-j)+String.fromCharCode(c1+j));
+						add_attack(piece_color,c0-j,c1+j);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							uplft=false;										
 						}
 					}
-					if(squares[i].id.charCodeAt(0)+j>h.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c0+j>h || c1-j<ch1 || tempMoveTo==squares[i]){
 						dwnrght=false;
 					}
 					if(dwnrght){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(String.fromCharCode(c0+j)+String.fromCharCode(c1-j));
+						add_attack(piece_color,c0+j,c1-j);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							dwnrght=false;										
 						}
 					}
-					if(squares[i].id.charCodeAt(0)-j<a.charCodeAt(0) || squares[i].id.charCodeAt(1)-j<ch1.charCodeAt(0) || tempMoveTo==squares[i]){
+					if(c0-j<a || c1-j<ch1 || tempMoveTo==squares[i]){
 						dwnlft=false;
 					}
 					if(dwnlft){
-						let attksqr=document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-j)+String.fromCharCode(squares[i].id.charCodeAt(1)-j));
-						if(pcstr[0]=="W"){
-							attackedW.push(attksqr);
-						}
-						if(pcstr[0]=="B"){
-							attackedB.push(attksqr);
-						}
+						let attksqr=document.getElementById(String.fromCharCode(c0-j)+String.fromCharCode(c1-j));
+						add_attack(piece_color,c0-j,c1-j);
 						if((attksqr.innerHTML!="" && tempMoveFrom!=attksqr) || tempMoveTo==attksqr){
 							dwnlft=false;										
 						}
 					}
 				}
 			}
-			if(pcstr[1]=="k" && pcstr[2]=="n" && tempMoveTo!=squares[i]){
-				let a="a",ch1="1",h="h",ch8="8";
-				if(pcstr[0]=="W"){
-					if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-					}
-				}	
-				if(pcstr[0]=="B"){
-					if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)+2<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)-2>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-2)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+2<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+2)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-2>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-2)));
-					}
-				}
+			if(pcstr[1]=="k" && pcstr[2]=="n" && tempMoveTo!=squares[i])/*Knight*/{
+				if(c0+2<=h && c1+1<=ch8) add_attack(piece_color, c0+2, c1+1);
+				if(c0+2<=h && c1-1>=ch1) add_attack(piece_color, c0+2, c1-1);
+				if(c0-2>=a && c1+1<=ch8) add_attack(piece_color, c0-2, c1+1);
+				if(c0-2>=a && c1-1>=ch1) add_attack(piece_color, c0-2, c1-1);
+				if(c0+1<=h && c1+2<=ch8) add_attack(piece_color, c0+1, c1+2);
+				if(c0+1<=h && c1-2>=ch1) add_attack(piece_color, c0+1, c1-2);
+				if(c0-1>=a && c1+2<=ch8) add_attack(piece_color, c0-1, c1+2);
+				if(c0-1>=a && c1-2>=ch1) add_attack(piece_color, c0-1, c1-2);
 			}
 			if(pcstr[1]=="k" && pcstr[2]=="i"){
-				let a="a",ch1="1",h="h",ch8="8";
-				if(pcstr[0]=="W"){
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0))+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0))+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1))));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0)){
-						attackedW.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1))));
-					}
-				}	
-				if(pcstr[0]=="B"){
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0) && squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(1)+1<=ch8.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0))+String.fromCharCode(squares[i].id.charCodeAt(1)+1)));
-					}
-					if(squares[i].id.charCodeAt(1)-1>=ch1.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0))+String.fromCharCode(squares[i].id.charCodeAt(1)-1)));
-					}
-					if(squares[i].id.charCodeAt(0)+1<=h.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)+1)+String.fromCharCode(squares[i].id.charCodeAt(1))));
-					}
-					if(squares[i].id.charCodeAt(0)-1>=a.charCodeAt(0)){
-						attackedB.push(document.getElementById(String.fromCharCode(squares[i].id.charCodeAt(0)-1)+String.fromCharCode(squares[i].id.charCodeAt(1))));
-					}
-				}
+				if(c0+1<=h && c1+1<=ch8) add_attack(piece_color, c0+1, c1+1);
+				if(c0+1<=h && c1-1>=ch1) add_attack(piece_color, c0+1, c1-1);
+				if(c0-1>=a && c1+1<=ch8) add_attack(piece_color, c0-1, c1+1);
+				if(c0-1>=a && c1-1>=ch1) add_attack(piece_color, c0-1, c1-1);
+				if(c1+1<=ch8) add_attack(piece_color, c0, c1+1);
+				if(c1-1>=ch1) add_attack(piece_color, c0, c1-1);
+				if(c0+1<=h) add_attack(piece_color, c0+1, c1);
+				if(c0-1>=a) add_attack(piece_color, c0-1, c1);
 			}
 		}
 	}
+}
+
+function add_attack(color, row, column){
+	/*Add a square to the list of attacked squares. 'row' and 'column' are the UTF-16 code of the row and column symbols.*/
+	if(color=="W"){attackedW.push(document.getElementById(String.fromCharCode(row)+String.fromCharCode(column)));}
+	if(color=="B"){attackedB.push(document.getElementById(String.fromCharCode(row)+String.fromCharCode(column)));}
 }
 
 document.getElementById("PromToBqueen" ).addEventListener('click', function(){ prom("B","queen", 1,"d","q");});
@@ -1304,7 +902,6 @@ function place(x_final, y_final) {
 			}
 			//let RestartBut=document.getElementById("resBut");
 			//RestartBut.style.display="flex";
-			language = document.currentScript.getAttribute('lang')
 			if(stalemate){
 				if(language = 'bg')	winDiv.innerHTML="Пат";
 				if(language = 'en') winDiv.innerHTML="Stalemate";
