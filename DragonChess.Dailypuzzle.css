@@ -201,8 +201,6 @@ body{
 #Main{
   width: 100vw;
   height: 120vh;
-  margin-left: auto;
-  margin-right: auto;
 }
 .IconArrowDown{
   height: 1.5vh;
@@ -348,6 +346,8 @@ background-color: #c24529;
 .row {
   display: flex;
   position: relative;
+  justify-content: center;
+  align-items: center;
 }
 .piece {
   object-fit: cover;
