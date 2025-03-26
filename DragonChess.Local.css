@@ -346,6 +346,8 @@ background-color: #c24529;
 .row {
   display: flex;
   position: relative;
+  justify-content: center;
+  align-items: center;
 }
 .piece {
   object-fit: cover;
