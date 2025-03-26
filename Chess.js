@@ -189,7 +189,7 @@ gsap.set("#retBut",{x: "0",y: "-111vh"});
 
 if(puzzle_number == 0)
 	for(let i=0;i<8;i++){
-		squares[(i*8)].style.marginLeft=(window.innerWidth-(0.8*window.innerHeight))/2+"px";//lol4
+		//squares[(i*8)].style.marginLeft=(window.innerWidth-(0.8*window.innerHeight))/2+"px";//lol4
 	}
 
 for(let i=0;i<16;i++){
