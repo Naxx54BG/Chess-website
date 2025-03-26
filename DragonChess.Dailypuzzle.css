@@ -201,6 +201,8 @@ body{
 #Main{
   width: 100vw;
   height: 120vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 .IconArrowDown{
   height: 1.5vh;
