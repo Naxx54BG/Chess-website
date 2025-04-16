@@ -20,7 +20,6 @@ corrm={
 };
 }
 else{
-	puzzle_number = parseInt(document.currentScript.getAttribute('puzzle_number'));
 	switch (puzzle_number) {
 	case 0: // daily puzzle
 		corrm={
@@ -220,6 +219,28 @@ function drag(piece){
 		isDrag=true;
 		dragValue=drpiece;
 	});
+}
+
+
+function populate(place, piece){
+	document.getElementById(place).innerHTML=piece + '<img class="piece" id="' + piece + '" src="Chess_' + (piece[2] == 'n' ? 'n' : piece[1]) + ({"B":"d","W":"l"})[piece[0]] + 't60.png">';
+	// the image name consists of: Chess_ + (n -> knight or first letter) + (d for black, l for white) + t60.png
+	drag(piece);
+}
+
+if(isPuzzle){
+	switch(puzzle_number){
+		case 1: populate("e8","Brook1"); populate("g8","Bking"); populate("e7","Bqueen"); populate("f7","Bpawn6"); populate("h7","Bpawn8"); populate("c6","Wqueen"); populate("f6","Bpawn4"); populate("c3","Wpawn3"); populate("f3","Wpawn2"); populate("a2","Wpawn1"); populate("e2","Wknight1"); populate("g2","Wpawn7"); populate("h2","Wpawn8"); populate("d1","Wrook1"); populate("e1","Wking"); populate("h1","Wrook2"); break;
+		case 2: populate("b8","Wking"); populate("d8","Wrook1"); populate("f8","Wbishop1"); populate("g8","Wknight1"); populate("h8","Wrook2"); populate("a7","Wpawn1"); populate("b7","Wpawn2"); populate("f7","Wpawn3"); populate("g7","Wpawn4"); populate("h7","Wpawn5"); populate("c5","Bpawn7"); populate("e5","Wqueen"); populate("a4","Wbishop2"); populate("d4","Bqueen"); populate("a2","Bpawn1"); populate("b2","Bpawn2"); populate("c2","Bpawn3"); populate("e2","Bpawn4"); populate("g2","Bpawn5"); populate("h2","Bpawn6"); populate("a1","Brook1"); populate("d1","Bking"); populate("f1","Bbishop1"); populate("g1","Bknight1"); populate("h1","Brook2"); break;
+		case 3: populate("c8","Wrook1"); populate("h6","Brook1"); populate("a5","Wking"); populate("c5","Bknight1"); populate("f5","Wpawn1"); populate("c4","Bking"); populate("f4","Wknight1"); populate("a3","Bpawn1"); break;
+		case 4: populate("b8","Bking"); populate("a7","Bpawn1"); populate("d7","Brook1"); populate("g7","Bbishop1"); populate("a6","Wbishop1"); populate("b6","Bpawn2"); populate("c6","Wqueen"); populate("d6","Bqueen"); populate("f6","Bpawn4"); populate("e5","Bpawn3"); populate("h5","Bpawn5"); populate("g4","Bbishop2"); populate("h4","Wpawn5"); populate("a3","Wpawn1"); populate("b3","Wknight1"); populate("g3","Wpawn4"); populate("b2","Wpawn2"); populate("c2","Wpawn3"); populate("c1","Wking"); populate("h1","Wrook1"); break;
+		case 5: populate("b8","Wking"); populate("h8","Wrook1"); populate("a7","Wpawn1"); populate("b7","Wpawn2"); populate("f7","Bqueen"); populate("h7","Wpawn4"); populate("d6","Wpawn3"); populate("b5","Wqueen"); populate("d5","Bpawn5"); populate("f5","Bpawn3"); populate("b3","Wrook2"); populate("b2","Bpawn1"); populate("f2","Bpawn2"); populate("g2","Bbishop1"); populate("h2","Bpawn4"); populate("b1","Bking"); populate("c1","Brook1"); break;
+		case 6: populate("b8","Wking"); populate("a7","Wpawn1"); populate("b7","Wpawn2"); populate("c7","Wpawn3"); populate("e7","Wpawn4"); populate("f7","Wpawn5"); populate("h7","Wpawn6"); populate("e5","Bpawn4"); populate("c4","Bpawn3"); populate("f4","Wqueen"); populate("b3","Bpawn1"); populate("h3","Bpawn5"); populate("b2","Bking"); populate("c2","Bpawn2"); populate("d1","Wrook1"); populate("g1","Brook1"); break;
+		case 7: populate("a8","Brook1"); populate("c8","Bbishop1"); populate("d8","Bqueen"); populate("a7","Bpawn1"); populate("b7","Bpawn2"); populate("c7","Bpawn3"); populate("f7","Wbishop1"); populate("h7","Bking"); populate("c6","Bknight1"); populate("d6","Bpawn4"); populate("h6","Bpawn6"); populate("c5","Bbishop2"); populate("d5","Bknight2"); populate("e5","Bpawn5"); populate("h5","Wqueen"); populate("e4","Wpawn5"); populate("d3","Wpawn4"); populate("a2","Wpawn1"); populate("b2","Wpawn2"); populate("c2","Wpawn3"); populate("f2","Wpawn6"); populate("g2","Wpawn7"); populate("h2","Wpawn8"); populate("a1","Wrook1"); populate("e1","Wking"); populate("h1","Wrook2"); break;
+		case 8: populate("a8","Wrook1"); populate("d8","Wking"); populate("e8","Wqueen"); populate("h8","Wrook2"); populate("a7","Wpawn1"); populate("b7","Wpawn2"); populate("f7","Wpawn6"); populate("g7","Wpawn7"); populate("h7","Wpawn8"); populate("c6","Wpawn3"); populate("d6","Wpawn4"); populate("d5","Bknight1"); populate("e5","Wpawn5"); populate("d4","Wknight2"); populate("e4","Bpawn5"); populate("b3","Bbishop1"); populate("d3","Bpawn4"); populate("f3","Bpawn6"); populate("a2","Bpawn1"); populate("b2","Bpawn2"); populate("c2","Bpawn3"); populate("d2","Bqueen"); populate("e2","Wknight1"); populate("f2","Bpawn7"); populate("h2","Bpawn8"); populate("b1","Bking"); populate("e1","Brook2"); populate("h1","Brook1"); break;
+		case 9: populate("a8","Wrook1"); populate("d8","Wking"); populate("e8","Wqueen"); populate("h8","Wrook2"); populate("a7","Wpawn1"); populate("b7","Wpawn2"); populate("c7","Wpawn3"); populate("g7","Wpawn6"); populate("h7","Wpawn7"); populate("c6","Wknight1"); populate("d6","Wpawn4"); populate("e6","Wbishop2"); populate("h6","Wknight2"); populate("e5","Wpawn5"); populate("f5","Bpawn8"); populate("g5","Wbishop1"); populate("a3","Bknight1"); populate("d3","Bpawn4"); populate("a2","Bpawn1"); populate("b2","Bpawn2"); populate("c2","Bpawn3"); populate("d2","Bqueen"); populate("f2","Bpawn5"); populate("g2","Bpawn6"); populate("h2","Bpawn7"); populate("a1","Brook1"); populate("d1","Bking"); populate("f1","Bbishop2"); populate("g1","Bknight2"); populate("h1","Brook2"); break;
+		case 10: populate("b8","Wking"); populate("d8","Wrook1"); populate("e8","Wqueen"); populate("h8","Wrook2"); populate("b7","Wbishop2"); populate("e7","Wbishop1"); populate("g7","Wpawn4"); populate("h7","Wpawn5"); populate("a6","Wpawn1"); populate("b6","Bqueen"); populate("d6","Wknight1"); populate("f6","Wpawn3"); populate("c5","Bknight1"); populate("e5","Wpawn2"); populate("e4","Bpawn5"); populate("d3","Bpawn4"); populate("f3","Bknight2"); populate("h3","Bpawn7"); populate("a2","Bpawn1"); populate("b2","Bpawn2"); populate("c2","Bpawn3"); populate("g2","Bpawn6"); populate("b1","Bking"); populate("c1","Brook1"); populate("g1","Wknight2"); populate("h1","Brook2"); break;
+	}
 }
 
 function take(sqr){
